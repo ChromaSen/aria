@@ -32,7 +32,7 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = [
+	public var optionShit:Array<String> = [
 		'story_mode',
 		'extra',
 		'freeplay',
@@ -43,6 +43,7 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	public var bar:FlxSprite;
 
 	override function create()
 	{
@@ -60,7 +61,6 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
-
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
@@ -78,6 +78,12 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
+
+		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
+		bar.screenCenter();
+		bar.antialiasing=false;
+		bar.cameras=[camAchievement];
+		add(bar);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -108,8 +114,8 @@ class MainMenuState extends MusicBeatState
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
+			menuItem.scale.x = 0.65;
+			menuItem.scale.y = 0.65;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
@@ -123,6 +129,20 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+
+			
+			switch(optionShit[i])
+			{
+				case 'story_mode':
+					menuItem.setPosition(38,97);
+				case 'extra':
+					menuItem.setPosition(678,175);
+				case 'freeplay':
+					menuItem.setPosition(39,388);
+				case 'options':
+					menuItem.setPosition(656,495);
+				
+			}
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
@@ -174,6 +194,21 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
+
+		#if debug
+		var positions:Array<Array<Float>>=[];
+
+		for (shit in menuItems)
+		{
+			positions.push([shit.x,shit.y]);
+		}
+
+		for (i in 0...optionShit.length)
+		{
+			FlxG.watch.addQuick(optionShit[i] + " x and y", positions[i]);
+		}
+		#end
+
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
@@ -263,10 +298,6 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
-			spr.screenCenter(X);
-		});
 	}
 
 	function changeItem(huh:Int = 0)
