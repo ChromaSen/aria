@@ -77,6 +77,7 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.scale.set(0.5, 0.5);
 		add(bg);
 
 		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
@@ -134,27 +135,27 @@ class MainMenuState extends MusicBeatState
 			switch(optionShit[i])
 			{
 				case 'story_mode':
-					menuItem.setPosition(38,97);
+					menuItem.setPosition(113,90);
 				case 'extra':
-					menuItem.setPosition(678,175);
+					menuItem.setPosition(696,147);
 				case 'freeplay':
-					menuItem.setPosition(39,388);
+					menuItem.setPosition(135,341);
 				case 'options':
-					menuItem.setPosition(656,495);
+					menuItem.setPosition(701,403);
 				
 			}
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		/*var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
+		add(versionShit);*/
 
 		// NG.core.calls.event.logEvent('swag').send();
 
