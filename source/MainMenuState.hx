@@ -21,7 +21,7 @@ import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxBackdrop;
-
+import flixel.util.FlxTimer;
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -63,6 +63,8 @@ class MainMenuState extends MusicBeatState
 		Paths.pushGlobalMods();
 		#end
 		WeekData.loadTheFirstEnabledMod();
+
+		FlxG.mouse.visible=true;
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -124,8 +126,8 @@ class MainMenuState extends MusicBeatState
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
-			menuItem.scale.x = 0.65;
-			menuItem.scale.y = 0.65;
+			menuItem.scale.x = 0.7;
+			menuItem.scale.y = 0.7;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
@@ -220,6 +222,10 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
+		for (e in menuItems) {
+			click(e);
+		}
+
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
@@ -310,6 +316,40 @@ class MainMenuState extends MusicBeatState
 		super.update(elapsed);
 
 	}
+
+	private function click(item:FlxSprite):Void{
+		if (FlxG.mouse.overlaps(item)){
+			item.animation.play('selected');
+			if (FlxG.mouse.justPressed){
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				if(ClientPrefs.flashing)FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					var option:String=null;
+					for (i in 0...menuItems.length){
+						if (menuItems.members[i]==item){
+							option=optionShit[i];
+						}
+					}
+					if (option!=null){
+						FlxFlicker.flicker(item, 1, 0.06, false, false, function(flick:FlxFlicker){
+							switch (option){
+								case 'story_mode':
+									MusicBeatState.switchState(new StoryMenuState());
+								case 'extra':
+									trace("nuh uh");
+								case 'freeplay':
+									MusicBeatState.switchState(new FreeplayState());
+								case 'options':
+									LoadingState.loadAndSwitchState(new options.OptionsState());
+							}
+						});
+					}
+				}
+			}
+		else{
+			item.animation.play('idle');
+		}
+	}
+	
 
 	function changeItem(huh:Int = 0)
 	{
