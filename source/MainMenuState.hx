@@ -43,7 +43,6 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-	public var bar:FlxSprite;
 
 	override function create()
 	{
@@ -78,13 +77,6 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
-		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
-		bar.screenCenter();
-		bar.antialiasing=false;
-		bar.cameras=[camAchievement];
-		add(bar);
-
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
