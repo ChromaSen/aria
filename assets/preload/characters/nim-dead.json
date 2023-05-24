@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				81,
+				21
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "nim dies",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				34
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "nim dead confirm",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				-1
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "nim dead loop",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/assets_nim_FINAL",
+	"position": [
+		0,
+		200
+	],
+	"healthicon": "nim",
+	"flip_x": true,
+	"healthbar_colors": [
+		54,
+		162,
+		214
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}
