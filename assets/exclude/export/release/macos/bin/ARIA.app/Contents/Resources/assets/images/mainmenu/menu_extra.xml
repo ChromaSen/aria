@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="menu_extra.png">
-	<!-- Created with Adobe Animate version 22.0.1.105 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="extra basic0000" x="10" y="10" width="710" height="419"/>
-	<SubTexture name="extra white0000" x="10" y="439" width="795" height="476"/>
-</TextureAtlas>
