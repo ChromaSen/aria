@@ -50,11 +50,12 @@ class MainMenuState extends MusicBeatState
 	{
 		#if (flixel >= "5.0.0")
         backdro = new FlxBackdrop(Paths.image('menu'), XY);
-        backdro.spacing.x = -0.1;
+        backdro.spacing.x = -0.01;
         #else
-        backdro = new FlxBackdrop(Paths.image('menu'), -0.1, 1, true, true);	
+        backdro = new FlxBackdrop(Paths.image('menu'), -0.01, 1, true, true);	
         #end 
-		backdro.scale.set(0.5, 0.5);       
+		backdro.scale.set(0.5, 0.5);   
+		backdro.antialiasing = ClientPrefs.globalAntialiasing;    
 		add(backdro);
         backdro.y = 400;
         //backdro.alpha = 0.16;
@@ -64,7 +65,7 @@ class MainMenuState extends MusicBeatState
 		#end
 		WeekData.loadTheFirstEnabledMod();
 
-		FlxG.mouse.visible=true;
+		//FlxG.mouse.visible=true; optional
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -223,7 +224,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		for (e in menuItems) {
-			click(e);
+			//click(e); fuck no
 		}
 
 
@@ -336,6 +337,7 @@ class MainMenuState extends MusicBeatState
 									MusicBeatState.switchState(new StoryMenuState());
 								case 'extra':
 									trace("nuh uh");
+									LoadingState.loadAndSwitchState(new ExtrasState());
 								case 'freeplay':
 									MusicBeatState.switchState(new FreeplayState());
 								case 'options':
