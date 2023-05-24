@@ -1,0 +1,32 @@
+{
+	"songs": [
+		[
+			"Bling",
+			"bunsen",
+			[
+				206,
+				40,
+				93
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"difficulties": "",
+	"weekCharacters": [
+		"Bunsen",
+		"",
+		""
+	],
+	"storyName": "PYROMANIA",
+	"weekName": "Bunsen",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

@@ -1,37 +1,37 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				81,
 				21
 			],
-			"anim": "firstDeath",
+			"loop": false,
 			"fps": 24,
-			"name": "nim dies",
-			"indices": []
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "nim dies"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				34
 			],
-			"anim": "deathConfirm",
+			"loop": false,
 			"fps": 24,
-			"name": "nim dead confirm",
-			"indices": []
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "nim dead confirm"
 		},
 		{
-			"loop": true,
 			"offsets": [
 				0,
 				-1
 			],
-			"anim": "deathLoop",
+			"loop": true,
 			"fps": 24,
-			"name": "nim dead loop",
-			"indices": []
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "nim dead loop"
 		}
 	],
 	"no_antialiasing": false,
@@ -48,7 +48,7 @@
 		214
 	],
 	"camera_position": [
-		0,
+		-200,
 		0
 	],
 	"sing_duration": 6.1,

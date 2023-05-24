@@ -20,6 +20,7 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
@@ -31,21 +32,33 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
+	public var bar:FlxSprite;
 	public var optionShit:Array<String> = [
 		'story_mode',
-		'extra',
 		'freeplay',
-		'options'
+		'options',
+		'extra'
 	];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-
+	var backdro:FlxBackdrop;
+	
 	override function create()
 	{
+		#if (flixel >= "5.0.0")
+        backdro = new FlxBackdrop(Paths.image('menu'), XY);
+        backdro.spacing.x = -0.1;
+        #else
+        backdro = new FlxBackdrop(Paths.image('menu'), -0.1, 1, true, true);	
+        #end 
+		backdro.scale.set(0.5, 0.5);       
+		add(backdro);
+        backdro.y = 400;
+        //backdro.alpha = 0.16;
+        //backdro.color = 0xFF000000;
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
@@ -76,7 +89,12 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);
+		//add(bg);
+		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
+		bar.screenCenter();
+		bar.antialiasing=false;
+		bar.cameras=[camAchievement];
+		add(bar);
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -90,7 +108,7 @@ class MainMenuState extends MusicBeatState
 		magenta.visible = false;
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
-		add(magenta);
+		//add(magenta);
 		
 		// magenta.scrollFactor.set();
 
@@ -123,21 +141,21 @@ class MainMenuState extends MusicBeatState
 			menuItem.updateHitbox();
 
 			
-			switch(optionShit[i])
+			switch(optionShit[i]) //thx niceboy
 			{
 				case 'story_mode':
-					menuItem.setPosition(38,97);
-				case 'extra':
-					menuItem.setPosition(678,175);
+					menuItem.setPosition(113,90);
 				case 'freeplay':
-					menuItem.setPosition(39,388);
+					menuItem.setPosition(696,147);
 				case 'options':
-					menuItem.setPosition(656,495);
+					menuItem.setPosition(135,341);
+				case 'extra':
+					menuItem.setPosition(701,403);
 				
 			}
 		}
 
-		FlxG.camera.follow(camFollowPos, null, 1);
+		//FlxG.camera.follow(camFollowPos, null, 1); fuck that
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
@@ -181,6 +199,7 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		backdro.x += (90 * 2) * elapsed;
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -207,13 +226,13 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (controls.UI_LEFT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.UI_DOWN_P)
+			if (controls.UI_RIGHT_P)
 			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);

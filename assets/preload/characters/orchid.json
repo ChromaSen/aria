@@ -1,13 +1,14 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "danceLeft",
+			"fps": 24,
+			"name": "orchid idle",
 			"indices": [
 				30,
 				0,
@@ -25,17 +26,17 @@
 				12,
 				13,
 				14
-			],
-			"name": "orchid idle"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "danceRight",
+			"fps": 24,
+			"name": "orchid idle",
 			"indices": [
 				15,
 				16,
@@ -52,41 +53,40 @@
 				27,
 				28,
 				29
-			],
-			"name": "orchid idle"
+			]
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-13
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "cheer",
-			"fps": 24,
-			"name": "orchid cheer",
-			"indices": []
+			"indices": [],
+			"name": "orchid cheer"
 		},
 		{
-			"loop": false,
-			"offsets": [
-				0,
-				-21
-			],
-			"anim": "sad",
-			"fps": 24,
-			"name": "orchid cry",
-			"indices": []
-		},
-		{
-			"loop": false,
 			"offsets": [
 				0,
 				-24
 			],
-			"anim": "kiss",
+			"loop": false,
 			"fps": 24,
-			"name": "orchid kiss",
-			"indices": []
+			"anim": "kiss",
+			"indices": [],
+			"name": "orchid kiss"
+		},
+		{
+			"offsets": [
+				0,
+				-21
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "sad",
+			"loop": false,
+			"name": "orchid cry"
 		}
 	],
 	"no_antialiasing": false,
