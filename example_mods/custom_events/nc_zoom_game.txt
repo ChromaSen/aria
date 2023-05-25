@@ -1,0 +1,9 @@
+zoom tween the game camera (with optional zoom lock override)
+
+v1:
+- amount:number = defaultCamZoom
+
+v2:
+- duration:number = 0
+- ease:string = "linear"
+- lock:bool = nil

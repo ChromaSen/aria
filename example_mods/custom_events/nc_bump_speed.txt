@@ -1,0 +1,9 @@
+set the camera bump amount and frequency (in beats)
+note: bump amount is normalized; 1 = 1x default bump amount, 2 = 2x, etc
+
+v1:
+- modulo:number = 4
+
+v2:
+- amount_game:number = 1
+- amount_hud:number = 2

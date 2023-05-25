@@ -1,0 +1,7 @@
+instantly zoom the game camera (ignores lock)
+
+v1:
+- cam:string = "game"
+
+v2:
+- amount:number = defaultCamZoom if game / 1 if hud

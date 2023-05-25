@@ -1,0 +1,7 @@
+instantly move the game camera to a target (ignores lock)
+
+v1:
+- ?tag:string
+
+v2:
+- none

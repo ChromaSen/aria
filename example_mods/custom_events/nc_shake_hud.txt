@@ -1,0 +1,9 @@
+shake the hud camera (amount in pixels)
+
+v1:
+- ?x:number
+- ?y:number
+
+v2:
+- duration:number = 0
+- ease:string = "linear"

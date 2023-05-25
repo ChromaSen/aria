@@ -1,0 +1,9 @@
+tween the game camera to a target (with optional pos lock override)
+
+v1:
+- tag:string
+
+v2:
+- duration:number = 0
+- ease:string = "linear"
+- lock:bool = nil

@@ -1,0 +1,8 @@
+bump both cameras
+note: bump amount is normalized; 1 = 1x default bump amount, 2 = 2x, etc
+
+v1:
+- amount_game:number = 1
+
+v2:
+- amount_hud:number = 2
