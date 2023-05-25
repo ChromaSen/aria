@@ -20,3 +20,5 @@ assets/exclude/export/*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+##Macfaggery.
+.DS_Store
