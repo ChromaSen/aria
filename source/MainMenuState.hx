@@ -287,7 +287,17 @@ class MainMenuState extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
+										PlayState.storyPlaylist=['bling','philly-fray'];
+										PlayState.isStoryMode=true;	
+
+										PlayState.SONG=Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase(),PlayState.storyPlaylist[0].toLowerCase());
+										PlayState.storyWeek=1;
+										PlayState.campaignScore=0;
+										PlayState.campaignMisses=0;
+										new FlxTimer().start(0.3,function(gfdssfgdfdgs:FlxTimer)
+										{
+											LoadingState.loadAndSwitchState(new PlayState());
+										});
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
 									case 'extra':
@@ -313,39 +323,6 @@ class MainMenuState extends MusicBeatState
 
 	}
 
-	private function click(item:FlxSprite):Void{
-		if (FlxG.mouse.overlaps(item)){
-			item.animation.play('selected');
-			if (FlxG.mouse.justPressed){
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				if(ClientPrefs.flashing)FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-					var option:String=null;
-					for (i in 0...menuItems.length){
-						if (menuItems.members[i]==item){
-							option=optionShit[i];
-						}
-					}
-					if (option!=null){
-						FlxFlicker.flicker(item, 1, 0.06, false, false, function(flick:FlxFlicker){
-							switch (option){
-								case 'story_mode':
-									//MusicBeatState.switchState(new StoryMenuState());
-								case 'extra':
-									trace("nuh uh");
-									LoadingState.loadAndSwitchState(new ExtrasState());
-								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
-								case 'options':
-									LoadingState.loadAndSwitchState(new options.OptionsState());
-							}
-						});
-					}
-				}
-			}
-		else{
-			item.animation.play('idle');
-		}
-	}
 	
 
 	function changeItem(huh:Int = 0)
