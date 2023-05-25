@@ -3604,7 +3604,8 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
+					//MusicBeatState.switchState(new StoryMenuState());
+					MusicBeatState.switchState(new MainMenuState()); //Exiting out a song takes you back to menu instead of week selection.
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
