@@ -23,6 +23,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxBackdrop;
 import flixel.util.FlxTimer;
 using StringTools;
+import WeekData;
 
 class MainMenuState extends MusicBeatState
 {
@@ -289,14 +290,8 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
+									case 'extra':
+										MusicBeatState.switchState(new ExtrasState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
@@ -334,7 +329,7 @@ class MainMenuState extends MusicBeatState
 						FlxFlicker.flicker(item, 1, 0.06, false, false, function(flick:FlxFlicker){
 							switch (option){
 								case 'story_mode':
-									MusicBeatState.switchState(new StoryMenuState());
+									//MusicBeatState.switchState(new StoryMenuState());
 								case 'extra':
 									trace("nuh uh");
 									LoadingState.loadAndSwitchState(new ExtrasState());
