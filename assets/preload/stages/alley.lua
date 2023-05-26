@@ -15,12 +15,31 @@ function onCreate()
 
 	makeLuaSprite('alley', 'alley/alley', 0, -500);
 
-	makeLuaSprite('objects', 'alley/objects', 500, 250);
+	makeLuaSprite('objects', 'alley/objects', 500, 300);
 
 	addLuaSprite('background', false);
 	addLuaSprite('light', false);
 	addLuaSprite('alley', false);
 	addLuaSprite('objects', false);
 
+	if not lowQuality then
+		makeAnimatedLuaSprite('stagelight_left', 'alley/backgroundalley_assets', -200, 400)
+		addAnimationByPrefix('stagelight_left', 'stagelight_left', 'glow2 copy', 24, true)
 
+		playAnim('stagelight_left', 'stagelight_left')
+		
+		makeAnimatedLuaSprite('stagelight_right', 'alley/backgroundalley_assets', 100, -400)
+		addAnimationByPrefix('stagelight_right', 'stagelight_right', 'glow20', 24, true)
+		
+		playAnim('stagelight_right', 'stagelight_right')
+		
+		initLuaShader('ALPHA')
+		setSpriteShader('stagelight_left', 'ALPHA')
+		setSpriteShader('stagelight_right', 'ALPHA')
+		setProperty('stagelight_left.alpha', 0.4)
+		setProperty('stagelight_right.alpha', 0.4)
+	end
+
+	addLuaSprite('stagelight_left', true)
+	addLuaSprite('stagelight_right', true)
 end
