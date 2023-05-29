@@ -59,13 +59,14 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesatARIA'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
-
-		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.scale.set(0.5, 0.5);
 		add(bg);
+		bg.screenCenter();
+
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
