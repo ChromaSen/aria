@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "nim idle"
+			"fps": 24,
+			"name": "nim idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				5,
 				-17
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "nim left0"
+			"fps": 24,
+			"name": "nim left0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-50,
 				-8
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "nim right0"
+			"fps": 24,
+			"name": "nim right0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-33,
 				-30
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "nim down0"
+			"fps": 24,
+			"name": "nim down0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-36,
 				7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "nim up0"
+			"fps": 24,
+			"name": "nim up0",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-37,
 				7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUPmiss",
-			"indices": [],
-			"name": "nim up miss"
+			"fps": 24,
+			"name": "nim up miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-33,
 				-28
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWNmiss",
-			"indices": [],
-			"name": "nim down miss"
+			"fps": 24,
+			"name": "nim down miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-50,
 				-8
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"indices": [],
-			"name": "nim right miss"
+			"fps": 24,
+			"name": "nim right miss",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				5,
 				-12
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFTmiss",
-			"indices": [],
-			"name": "nim left miss"
+			"fps": 24,
+			"name": "nim left miss",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -114,7 +114,7 @@
 		214
 	],
 	"camera_position": [
-		0,
+		100,
 		0
 	],
 	"sing_duration": 6.1,

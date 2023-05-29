@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="train.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="train move0000" x="0" y="0" width="1570" height="607"/>
+	<SubTexture name="train move0001" x="1570" y="0" width="1570" height="607"/>
+	<SubTexture name="train move0002" x="3140" y="0" width="1570" height="607"/>
+	<SubTexture name="train move0003" x="4710" y="0" width="1570" height="607"/>
+	<SubTexture name="train move0004" x="6280" y="0" width="1570" height="607"/>
+	<SubTexture name="train move0005" x="0" y="607" width="1570" height="607"/>
+	<SubTexture name="train move0006" x="1570" y="607" width="1570" height="607"/>
+	<SubTexture name="train move0007" x="3140" y="607" width="1570" height="607"/>
+	<SubTexture name="train move0008" x="4710" y="607" width="1570" height="607"/>
+	<SubTexture name="train move0009" x="6280" y="607" width="1570" height="607"/>
+	<SubTexture name="train move0010" x="0" y="1214" width="1570" height="607"/>
+	<SubTexture name="train move0011" x="1570" y="1214" width="1570" height="607"/>
+	<SubTexture name="train move0012" x="3140" y="1214" width="1570" height="607"/>
+	<SubTexture name="train move0013" x="4710" y="1214" width="1570" height="607"/>
+	<SubTexture name="train move0014" x="6280" y="1214" width="1570" height="607"/>
+	<SubTexture name="train move0015" x="0" y="1821" width="1570" height="607"/>
+	<SubTexture name="train move0016" x="1570" y="1821" width="1570" height="607"/>
+	<SubTexture name="train move0017" x="3140" y="1821" width="1570" height="607"/>
+	<SubTexture name="train move0018" x="4710" y="1821" width="1570" height="607"/>
+	<SubTexture name="train move0019" x="6280" y="1821" width="1570" height="607"/>
+	<SubTexture name="train move0020" x="0" y="2428" width="1570" height="607"/>
+	<SubTexture name="train move0021" x="1570" y="2428" width="1570" height="607"/>
+	<SubTexture name="train move0022" x="3140" y="2428" width="1570" height="607"/>
+	<SubTexture name="train move0023" x="4710" y="2428" width="1570" height="607"/>
+	<SubTexture name="train move0024" x="6280" y="2428" width="1570" height="607"/>
+	<SubTexture name="train move0025" x="0" y="3035" width="1570" height="607"/>
+	<SubTexture name="train move0026" x="1570" y="3035" width="1570" height="607"/>
+	<SubTexture name="train move0027" x="3140" y="3035" width="1570" height="607"/>
+	<SubTexture name="train move0028" x="4710" y="3035" width="1570" height="607"/>
+	<SubTexture name="train move0029" x="6280" y="3035" width="1570" height="607"/>
+	<SubTexture name="train move0030" x="0" y="3642" width="1570" height="607"/>
+	<SubTexture name="train move0031" x="1570" y="3642" width="1570" height="607"/>
+	<SubTexture name="train move0032" x="3140" y="3642" width="1570" height="607"/>
+	<SubTexture name="train move0033" x="4710" y="3642" width="1570" height="607"/>
+	<SubTexture name="train move0034" x="6280" y="3642" width="1570" height="607"/>
+	<SubTexture name="train move0035" x="0" y="4249" width="1570" height="607"/>
+	<SubTexture name="train move0036" x="1570" y="4249" width="1570" height="607"/>
+	<SubTexture name="train move0037" x="3140" y="4249" width="1570" height="607"/>
+	<SubTexture name="train move0038" x="4710" y="4249" width="1570" height="607"/>
+	<SubTexture name="train move0039" x="6280" y="4249" width="1570" height="607"/>
+</TextureAtlas>

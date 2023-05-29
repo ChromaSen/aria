@@ -1,0 +1,122 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "kuntz idle"
+		},
+		{
+			"offsets": [
+				18,
+				4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "kuntz left"
+		},
+		{
+			"offsets": [
+				-51,
+				-21
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "kuntz right"
+		},
+		{
+			"offsets": [
+				28,
+				17
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "kuntz up"
+		},
+		{
+			"offsets": [
+				-23,
+				-71
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "kuntz down"
+		},
+		{
+			"offsets": [
+				39,
+				-2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hurt",
+			"indices": [],
+			"name": "kuntz hurt"
+		},
+		{
+			"offsets": [
+				70,
+				78
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "die",
+			"indices": [],
+			"name": "kuntz die"
+		},
+		{
+			"offsets": [
+				-48,
+				-11
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "shoot",
+			"indices": [],
+			"name": "kuntz shoot"
+		},
+		{
+			"offsets": [
+				-47,
+				-11
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "punch",
+			"indices": [],
+			"name": "kuntz punch"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/y2kuntz",
+	"position": [
+		0,
+		110
+	],
+	"healthicon": "y2kuntz",
+	"flip_x": false,
+	"healthbar_colors": [
+		143,
+		220,
+		135
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}
