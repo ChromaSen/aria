@@ -266,6 +266,12 @@ class PlayState extends MusicBeatState
 	var tankmanRun:FlxTypedGroup<TankmenBG>;
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
+	//ARIA ANIMATED SPRITES HERE
+	var train:FlxSprite;
+	var bloom:BGSprite;
+	var igotarock:BGSprite;
+	var rain:FlxSprite;
+
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -519,6 +525,39 @@ class PlayState extends MusicBeatState
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
 				}
+			case 'train_bg': //y2kuntz bg
+				var bg:BGSprite = new BGSprite('train/bg', 250, -330);
+				var building1:BGSprite = new BGSprite('train/buildings2', -300, 250);
+				var building2:BGSprite = new BGSprite('train/newgrounds', -50, 250);
+				
+				bloom = new BGSprite('train/bloom', -250, -330);
+				igotarock = new BGSprite('train/rock', -400, 630); //peanuts reference
+				
+				train = new FlxSprite();
+				train.frames=Paths.getSparrowAtlas("train/train");
+				train.animation.addByPrefix("move","train move", 24, true);
+				train.antialiasing= ClientPrefs.globalAntialiasing;
+				train.x=270;
+				train.y=1000;
+				train.animation.play("move", true); //just to make sure
+				train.scale.set(1.2, 1.2);	
+			
+				add(bg);
+				add(building1);
+				add(building2);
+				add(train);
+				for (i in 0...4)
+					{
+						rain=new FlxSprite (420, 700);
+						rain.frames=Paths.getSparrowAtlas("train/rainscaled");
+						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
+						rain.x = (i-1) * -300;
+                    	rain.y = (i-1) * 700;
+						rain.scale.set(1.2, 1.2);
+						rain.animation.play("rainmove", true);	
+						add(rain);
+					}
+				cheekyrock();
 				dadbattleSmokes = new FlxSpriteGroup(); //troll'd
 		}
 
@@ -547,6 +586,9 @@ class PlayState extends MusicBeatState
 				add(halloweenWhite);
 			case 'tank':
 				add(foregroundSprites);
+			case 'train_bg':
+				add(igotarock);
+				add(bloom);
 		}
 
 		#if LUA_ALLOWED
@@ -2508,6 +2550,8 @@ class PlayState extends MusicBeatState
 		{
 			case 'tank':
 				moveTank(elapsed);
+			case 'train_bg':
+				cheekyrock(elapsed);
 			case 'schoolEvil':
 				if(!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished) {
 					bgGhouls.visible = false;
@@ -4592,6 +4636,13 @@ class PlayState extends MusicBeatState
 			tankGround.y = 1300 + 1100 * Math.sin(Math.PI / 180 * (1 * tankAngle + 180));
 		}
 	}
+	function cheekyrock(?elapsed:Float = 0):Void
+		{
+			for (i in -1...2) {
+				var width = igotarock.width + 4400;
+				igotarock.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
+			}
+		}
 
 	override function destroy() {
 		for (lua in luaArray) {
