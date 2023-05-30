@@ -60,6 +60,8 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import Sprites;
+import flixel.addons.display.FlxBackdrop;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -267,10 +269,13 @@ class PlayState extends MusicBeatState
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
 	//ARIA ANIMATED SPRITES HERE
-	var train:FlxSprite;
-	var bloom:BGSprite;
-	var igotarock:BGSprite;
-	var rain:FlxSprite;
+	public var building:FlxSprite;
+	public var train_bg:FlxSprite;
+	public var building2:FlxBackdrop;
+	public var train:FlxSprite;
+	public var bloom:BGSprite;
+	public var igotarock:BGSprite;
+	public var rain:FlxSprite;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -526,26 +531,23 @@ class PlayState extends MusicBeatState
 					add(stageCurtains);
 				}
 			case 'train_bg': //y2kuntz bg
-				var bg:BGSprite = new BGSprite('train/bg', 250, -330);
-				var building1:BGSprite = new BGSprite('train/buildings2', -300, 250);
-				var building2:BGSprite = new BGSprite('train/newgrounds', -50, 250);
-				
+				defaultCamZoom=0.84;
+
+				train_bg=Sprites.sprite('train/bg',250,-330);
+				train_bg.scale.set(2,2);
+				building=Sprites.sprite('train/buildings2',-300,250);
+
+				building2=Sprites.backdrop('train/newgrounds',-50,250,60,0);
+
 				bloom = new BGSprite('train/bloom', -250, -330);
-				igotarock = new BGSprite('train/rock', -400, 630); //peanuts reference
-				
-				train = new FlxSprite();
-				train.frames=Paths.getSparrowAtlas("train/train");
-				train.animation.addByPrefix("move","train move", 24, true);
-				train.antialiasing= ClientPrefs.globalAntialiasing;
-				train.x=270;
-				train.y=1000;
-				train.animation.play("move", true); //just to make sure
+				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
+
+				 /* path, x, y, animation name,should it loop? */
+				 
+				train=Sprites.animatedSprite("train/train",270,1000,"train move",true);
+
 				train.scale.set(1.2, 1.2);	
 			
-				add(bg);
-				add(building1);
-				add(building2);
-				add(train);
 				for (i in 0...4)
 					{
 						rain=new FlxSprite (420, 700);
@@ -557,8 +559,7 @@ class PlayState extends MusicBeatState
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
-				cheekyrock();
-				dadbattleSmokes = new FlxSpriteGroup(); //troll'd
+				cheekyrock();		
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
