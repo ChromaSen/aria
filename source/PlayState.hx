@@ -535,9 +535,9 @@ class PlayState extends MusicBeatState
 
 				train_bg=Sprites.sprite('train/bg',250,-330);
 				train_bg.scale.set(2,2);
-				building=Sprites.sprite('train/buildings2',-300,250);
-
-				building2=Sprites.backdrop('train/newgrounds',-50,250,60,0);
+				building=Sprites.backdrop('train/buildings2',-300,250,20,0);
+				//path, x, y, velocity x, velocity y
+				building2=Sprites.backdrop('train/newgrounds',-50,250,40,0);
 
 				bloom = new BGSprite('train/bloom', -250, -330);
 				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
@@ -2072,6 +2072,8 @@ class PlayState extends MusicBeatState
 				{
 					spr.dance();
 				});
+			case 'train_bg':
+				cheekyrock();
 		}
 
 		#if desktop

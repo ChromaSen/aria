@@ -595,11 +595,12 @@ class WeekEditorFreeplayState extends MusicBeatState
 	var curSelected = 0;
 
 	override function create() {
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesatARIA'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
-
+		bg.scale.set(0.5, 0.5);
 		bg.color = FlxColor.WHITE;
 		add(bg);
+		bg.screenCenter();
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);

@@ -42,8 +42,6 @@ class MainMenuState extends MusicBeatState
 		'options',
 		'extra'
 	];
-
-	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
@@ -87,6 +85,14 @@ class MainMenuState extends MusicBeatState
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
+
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		bg.scrollFactor.set(0, 0);
+		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.updateHitbox();
+		bg.screenCenter();
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		//add(bg);
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
@@ -249,8 +255,6 @@ class MainMenuState extends MusicBeatState
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
