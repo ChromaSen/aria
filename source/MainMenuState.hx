@@ -275,11 +275,11 @@ class MainMenuState extends MusicBeatState
 								var daChoice:String = optionShit[curSelected];
 
 
-								FlxTween.tween(FlxG.camera,{zoom:1.2},0.2);
+								FlxTween.tween(FlxG.camera,{zoom:1.2},0.6, {ease: FlxEase.quadIn});
 								switch (daChoice)
 								{
 									case 'story_mode':
-										PlayState.storyPlaylist=['bling','philly-fray'];
+										PlayState.storyPlaylist=['philly-fray', 'bling'];
 										PlayState.isStoryMode=true;
 										PlayState.storyWeek=1;
 										PlayState.campaignScore=0;

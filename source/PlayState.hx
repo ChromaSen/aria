@@ -275,6 +275,7 @@ class PlayState extends MusicBeatState
 	public var train:FlxSprite;
 	public var bloom:BGSprite;
 	public var igotarock:BGSprite;
+	public var jaredfromsubway:BGSprite;
 	public var rain:FlxSprite;
 
 	public var songScore:Int = 0;
@@ -538,7 +539,8 @@ class PlayState extends MusicBeatState
 				building=Sprites.backdrop('train/buildings2',-300,250,20,0);
 				//path, x, y, velocity x, velocity y
 				building2=Sprites.backdrop('train/newgrounds',-50,250,40,0);
-
+				jaredfromsubway = new BGSprite('train/thejardfogle', -400, 230);
+				add(jaredfromsubway);
 				bloom = new BGSprite('train/bloom', -250, -330);
 				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
 
@@ -4644,6 +4646,10 @@ class PlayState extends MusicBeatState
 			for (i in -1...2) {
 				var width = igotarock.width + 4400;
 				igotarock.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
+			}
+			for (i in -1...2) {
+				var width = jaredfromsubway.width + 4400;
+				jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
 			}
 		}
 
