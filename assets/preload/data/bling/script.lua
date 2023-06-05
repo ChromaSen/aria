@@ -14,6 +14,10 @@ function onBeatHit() --fuck events.json all my homies hate events.json
 		cameraFlash('camHUD', 'ffffff', 1)
 		callScript("scripts/neocam", "zoom", {"game", 1.2, 16, "sineinout"})
 	end
+	if curBeat == 288 then
+		cameraFlash('camHUD', 'ffffff', 1)
+		callScript("scripts/neocam", "zoom", {"game", 0.8, 16, "sineinout"})
+	end
 end
 function onUpdate() end
 function onUpdatePost() end

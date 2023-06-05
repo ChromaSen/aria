@@ -539,8 +539,8 @@ class PlayState extends MusicBeatState
 				building=Sprites.backdrop('train/buildings2',-300,250,20,0);
 				//path, x, y, velocity x, velocity y
 				building2=Sprites.backdrop('train/newgrounds',-50,250,40,0);
-				jaredfromsubway = new BGSprite('train/thejardfogle', -400, 230);
-				add(jaredfromsubway);
+				jaredfromsubway = new BGSprite('train/thejardfogle', -400, 430);
+				//add(jaredfromsubway);
 				bloom = new BGSprite('train/bloom', -250, -330);
 				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
 

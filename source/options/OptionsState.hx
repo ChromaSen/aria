@@ -1,5 +1,6 @@
 package options;
 
+import flixel.input.FlxAccelerometer;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -58,14 +59,20 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
-
+		var stupidasscat:FlxSprite = new FlxSprite(200);
+		stupidasscat.frames = Paths.getSparrowAtlas('mibsile');
+		stupidasscat.animation.addByPrefix('ambatukam', 'happy mothafucka', 60, true);
+		stupidasscat.animation.play('ambatukam', true);
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesatARIA'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scale.set(0.5, 0.5);
 		add(bg);
+		add(stupidasscat);
 		bg.screenCenter();
+		
+		FlxG.sound.playMusic(Paths.music('CogsSETTINGS'));
 
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -106,15 +113,22 @@ class OptionsState extends MusicBeatState
 		}
 
 		if (controls.BACK) {
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			goddamnitbobby();
 		}
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
 	}
-	
+	function goddamnitbobby()
+		{
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.stop();
+			}
+			MusicBeatState.switchState(new MainMenuState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		}
+
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
 		if (curSelected < 0)

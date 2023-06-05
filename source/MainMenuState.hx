@@ -86,14 +86,6 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		//add(bg);
-
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
 		bar.screenCenter();
@@ -140,13 +132,13 @@ class MainMenuState extends MusicBeatState
 			switch(optionShit[i]) //thx niceboy
 			{
 				case 'story_mode':
-					menuItem.setPosition(113,90);
+					menuItem.setPosition(113,65);
 				case 'freeplay':
-					menuItem.setPosition(696,147);
+					menuItem.setPosition(696,122);
 				case 'options':
-					menuItem.setPosition(135,341);
+					menuItem.setPosition(135,316);
 				case 'extra':
-					menuItem.setPosition(701,403);
+					menuItem.setPosition(701,378);
 				
 			}
 		}
@@ -295,6 +287,7 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new ExtrasState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
+										cutthefuckinmusic();
 								}
 							});
 						}
@@ -314,7 +307,12 @@ class MainMenuState extends MusicBeatState
 
 	}
 
-	
+	function cutthefuckinmusic()
+		{
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.stop();
+			}
+		}
 
 	function changeItem(huh:Int = 0)
 	{
