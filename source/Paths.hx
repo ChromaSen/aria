@@ -22,6 +22,7 @@ import openfl.display.BitmapData;
 import haxe.Json;
 
 import flash.media.Sound;
+import openfl.display3D.textures.Texture;
 
 using StringTools;
 
@@ -341,13 +342,23 @@ class Paths
 
 	// completely rewritten asset loading? fuck!
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static var currentTrackedTextures:Map<String,Texture>=[];
 	public static function returnGraphic(key:String, ?library:String) {
 		#if MODS_ALLOWED
 		var modKey:String = modsImages(key);
 		if(FileSystem.exists(modKey)) {
 			if(!currentTrackedAssets.exists(modKey)) {
 				var newBitmap:BitmapData = BitmapData.fromFile(modKey);
-				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, modKey);
+				var newGraphic:FlxGraphic;
+
+				var newTexture:Texture=FlxG.stage.context3D.createTexture(newBitmap.width,newBitmap.height,BGRA,false);
+				newTexture.uploadFromBitmapData(newBitmap);
+				currentTrackedTextures.set(modKey,newTexture);
+				newBitmap.dispose();
+				newBitmap.disposeImage();
+				newBitmap=null;
+				newGraphic=FlxG.bitmap.add(BitmapData.fromTexture(newTexture),false,modKey);
+	
 				newGraphic.persist = true;
 				currentTrackedAssets.set(modKey, newGraphic);
 			}
@@ -355,12 +366,22 @@ class Paths
 			return currentTrackedAssets.get(modKey);
 		}
 		#end
-
+	
 		var path = getPath('images/$key.png', IMAGE, library);
-		//trace(path);
 		if (OpenFlAssets.exists(path, IMAGE)) {
 			if(!currentTrackedAssets.exists(path)) {
-				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
+				var newBitmap:BitmapData=OpenFlAssets.getBitmapData(path);
+				var newGraphic:FlxGraphic;
+	
+
+				var newTexture:Texture=FlxG.stage.context3D.createTexture(newBitmap.width,newBitmap.height,BGRA,false);
+				newTexture.uploadFromBitmapData(newBitmap);
+				currentTrackedTextures.set(path,newTexture);
+				newBitmap.dispose();
+				newBitmap.disposeImage();
+				newBitmap=null;
+				newGraphic=FlxG.bitmap.add(BitmapData.fromTexture(newTexture),false,path);
+	
 				newGraphic.persist = true;
 				currentTrackedAssets.set(path, newGraphic);
 			}

@@ -11,6 +11,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
+import openfl.display3D.Context3D;
 
 #if desktop
 import Discord.DiscordClient;
@@ -86,6 +87,9 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
+		#if debug
+		getGPUMemory();
+		#end
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
@@ -117,6 +121,15 @@ class Main extends Sprite
 			});
 		}
 		#end
+	}
+	@:dox(hide)
+	function getGPUMemory():Void{
+		var context3D:Context3D=FlxG.stage.context3D;
+        if (context3D!=null){
+			var mem:Int=context3D.totalGPUMemory;
+			var KB:Float=mem>=0?mem/1024:-1;
+			trace("MEM: " + KB);
+		}
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
