@@ -26,6 +26,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.addons.effects.FlxSkewedSprite;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
@@ -61,6 +62,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import Sprites;
+import Shaders;
 import flixel.addons.display.FlxBackdrop;
 
 #if !flash 
@@ -272,7 +274,7 @@ class PlayState extends MusicBeatState
 	public var building:FlxSprite;
 	public var train_bg:FlxSprite;
 	public var building2:FlxBackdrop;
-	public var train:FlxSprite;
+	public var train:FlxSkewedSprite;
 	public var bloom:BGSprite;
 	public var igotarock:BGSprite;
 	public var jaredfromsubway:BGSprite;
@@ -551,8 +553,13 @@ class PlayState extends MusicBeatState
 
 				 /* path, x, y, animation name,should it loop? */
 				 
-				train=Sprites.animatedSprite("train/train",270,1000,"train move",true);
-
+				train=new FlxSkewedSprite();
+				train.frames=Paths.getSparrowAtlas("train/train");
+				train.animation.addByPrefix("idle","train move",true);
+				train.animation.play("idle");
+				train.setPosition(270,1000);
+				train.updateHitbox();
+				add(train);
 				train.scale.set(1.2, 1.2);	
 			
 				for (i in 0...4)
@@ -1461,14 +1468,22 @@ class PlayState extends MusicBeatState
 	public var bottom:FlxSprite;
 	public var intro:FlxSound;
 	public var all:Array<FlxSprite>;
+	public var VHS:FlxRuntimeShader;
+	public var chr:FlxRuntimeShader;
 	function versusIntro()
 		{
+			var source:String=File.getContent(Paths.modsShaderFragment("vhs"));
+			VHS=new FlxRuntimeShader(source);
+			VHS.setFloat("iTime",0);
+
+
+			FlxG.camera.setFilters([new ShaderFilter(VHS)]);
 			inCutscene = true;
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
 			FlxG.sound.list.add(intro);
-			top=new FlxSprite(0,-170).makeGraphic(1280,170,FlxColor.BLACK);
-			bottom=new FlxSprite(0,720).makeGraphic(1280,170,FlxColor.BLACK);
+			top=new FlxSprite(1300,-120).makeGraphic(1280,170,FlxColor.BLACK);
+			bottom=new FlxSprite(-1300,670).makeGraphic(1280,170,FlxColor.BLACK);
 			add(top);
 			add(bottom);
 			top.cameras=[camOther];
@@ -1496,26 +1511,29 @@ class PlayState extends MusicBeatState
 			all=[vsbg,nim,oppPort,top,bottom];
 			introtimer=new FlxTimer().start(0.5,function(fdks:FlxTimer){
 				intro.play(true);
-				FlxTween.tween(top,{y:-120},0.3,{ease:FlxEase.quintInOut});
-				FlxTween.tween(bottom,{y:670},0.3,{ease:FlxEase.quintInOut});
-				bunsentwn=FlxTween.tween(oppPort,{x:320},1.5,{
+				FlxTween.tween(top,{x:0},1,{ease:FlxEase.quintInOut});
+				FlxTween.tween(bottom,{x:0},1,{ease:FlxEase.quintInOut});
+				bunsentwn=FlxTween.tween(oppPort,{x:320},1.2,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
 						FlxTween.tween(oppPort,{x:345},5);
 					}
 				});
-				nimtwn=FlxTween.tween(nim,{x:1350},1.5,{
+				nimtwn=FlxTween.tween(nim,{x:1350},1.2,{
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
 							FlxTween.tween(nim,{x:1320},5);
+							
 						new FlxTimer().start(2.3,function(df:FlxTimer){
 							for(intro in all){
-								FlxTween.tween(intro,{alpha:0},1.5,{onComplete:function(dsfdfs:FlxTween){
+								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
 									camHUD.visible=true;
+									FlxG.camera.setFilters([]);
 									startCountdown();
 								}});
 							}
 						});
+						
 					}
 				});
 			});
@@ -2793,6 +2811,12 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			}
 		}
+		
+		if(inCutscene&&curSong.toLowerCase()=='philly fray')
+			{
+				VHS.setFloat("iTime",VHS.getFloat("iTime")+elapsed);
+				//chr.setFloat("iTime",chr.getFloat("iTime")+elapsed);
+			}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
 		{
@@ -3079,6 +3103,9 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
+		if(curSong.toLowerCase()=='dope'&&!inCutscene){
+			train.skew.x=(-((FlxG.camera.scroll.x+(FlxG.width/2))-train.getMidpoint().x)/0.010)/Math.PI/train.width;
+		}
 	}
 
 	function openPauseMenu()
