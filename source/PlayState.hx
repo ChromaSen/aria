@@ -277,6 +277,11 @@ class PlayState extends MusicBeatState
 	public var igotarock:BGSprite;
 	public var jaredfromsubway:BGSprite;
 	public var rain:FlxSprite;
+	/*public var opponentPortraits:Array<String> = [
+		'bunsen',
+		'kuntz',
+		'bo'
+	];*/
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -1019,7 +1024,8 @@ class PlayState extends MusicBeatState
 
 				case 'ugh' | 'guns' | 'stress':
 					tankIntro();
-
+				case 'philly-fray' | 'bling':
+					versusIntro();
 				default:
 					startCountdown();
 			}
@@ -1445,6 +1451,38 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
+	function versusIntro()
+		{
+			inCutscene = true;
+			camHUD.visible = false;
+			var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			black.screenCenter(X);
+			black.scrollFactor.set();
+			add(black);
+			var vsbg:BGSprite = new BGSprite('VS/VSbg');
+			vsbg.screenCenter(X);
+			vsbg.screenCenter(Y);
+			add(vsbg);
+
+			var songName:String = Paths.formatToSongPath(SONG.song);
+			var nim:FlxSprite = new FlxSprite(1500, 300);
+			nim.frames = Paths.getSparrowAtlas('VS/portraits/ports');
+			var oppPort:FlxSprite = new FlxSprite();
+			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
+			
+			nim.animation.addByPrefix('nim', "nim", 24);
+			nim.animation.play ('nim');
+			add(nim);
+			switch(songName)
+			{
+				case 'philly-fray':
+					oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
+					oppPort.animation.play('bunsen');
+					oppPort.x = 400;
+					oppPort.y = 700;
+					add(oppPort);
+			}
+		}
 
 	function tankIntro()
 	{

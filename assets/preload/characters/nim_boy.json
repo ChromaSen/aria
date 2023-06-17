@@ -98,6 +98,72 @@
 			"fps": 24,
 			"name": "nim left miss",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				85,
+				-28
+			],
+			"anim": "punch",
+			"fps": 24,
+			"name": "nim punch",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				48,
+				-19
+			],
+			"anim": "dodge",
+			"fps": 24,
+			"name": "nim dodge",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-21,
+				9
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "hurt",
+			"loop": false,
+			"name": "nim hurt"
+		},
+		{
+			"offsets": [
+				69,
+				36
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "taunt2",
+			"loop": false,
+			"name": "aria guy"
+		},
+		{
+			"offsets": [
+				69,
+				36
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "taunt1",
+			"loop": false,
+			"name": "nim taunt"
+		},
+		{
+			"offsets": [
+				48,
+				-19
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "dodgeMISS",
+			"loop": false,
+			"name": "nim near miss"
 		}
 	],
 	"no_antialiasing": false,

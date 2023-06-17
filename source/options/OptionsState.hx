@@ -59,16 +59,21 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
-		var stupidasscat:FlxSprite = new FlxSprite(200);
+		var stupidasscat:FlxSprite = new FlxSprite(300);
 		stupidasscat.frames = Paths.getSparrowAtlas('mibsile');
 		stupidasscat.animation.addByPrefix('ambatukam', 'happy mothafucka', 60, true);
 		stupidasscat.animation.play('ambatukam', true);
+		stupidasscat.x = 400;
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesatARIA'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scale.set(0.5, 0.5);
 		add(bg);
+		/*if (FlxG.random.bool(2))
+			{
+				add(stupidasscat);
+			}*/
 		add(stupidasscat);
 		bg.screenCenter();
 		
@@ -113,22 +118,22 @@ class OptionsState extends MusicBeatState
 		}
 
 		if (controls.BACK) {
-			goddamnitbobby();
+			var dareal:FlxTimer;
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.stop();
+			}
+			dareal = new FlxTimer().start(0.2, function(tmr:FlxTimer)
+				{
+					MusicBeatState.switchState(new MainMenuState());
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					dareal = null;
+				});
 		}
 
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
 	}
-	function goddamnitbobby()
-		{
-			if(FlxG.sound.music != null) {
-				FlxG.sound.music.stop();
-			}
-			MusicBeatState.switchState(new MainMenuState());
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		}
-
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
 		if (curSelected < 0)

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ports.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="bo0000" x="773" y="0" width="483" height="680"/>
+	<SubTexture name="bunsen0000" x="0" y="0" width="773" height="717"/>
+	<SubTexture name="kuntz0000" x="637" y="717" width="566" height="671"/>
+	<SubTexture name="nim0000" x="0" y="717" width="637" height="716"/>
+</TextureAtlas>
