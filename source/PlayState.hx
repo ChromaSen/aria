@@ -562,9 +562,9 @@ class PlayState extends MusicBeatState
 				add(train);
 				train.scale.set(1.2, 1.2);	
 			
-				for (i in 0...4)
+				for (i in 0...8)
 					{
-						rain=new FlxSprite (420, 700);
+						rain=new FlxSprite (520, -700);
 						rain.frames=Paths.getSparrowAtlas("train/rainscaled");
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 						rain.x = (i-1) * -300;
@@ -1458,7 +1458,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
-	public var vsbg:FlxSprite;
+	public var vsbg:FlxSprite; //"I literally made ARIA" - REDIALBEAT
 	public var nim:FlxSprite;
 	public var oppPort:FlxSprite;
 	public var introtimer:FlxTimer;
@@ -1498,7 +1498,11 @@ class PlayState extends MusicBeatState
 			oppPort = new FlxSprite();
 			oppPort.setPosition(-400,440);
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
+
 			oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
+			oppPort.animation.addByPrefix('y2kuntz', "y2kuntz", 24);
+			oppPort.animation.addByPrefix('bo', "bo", 24);
+
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
 			add(nim);
@@ -1506,6 +1510,12 @@ class PlayState extends MusicBeatState
 			{
 				case 'philly fray':
 					oppPort.animation.play('bunsen');
+					add(oppPort);
+				case 'dope':
+					oppPort.animation.play('y2kuntz');
+					add(oppPort);
+				case 'kokoro':
+					oppPort.animation.play('bo');
 					add(oppPort);
 			}
 			all=[vsbg,nim,oppPort,top,bottom];
