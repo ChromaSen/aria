@@ -1451,37 +1451,74 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
+	public var vsbg:FlxSprite;
+	public var nim:FlxSprite;
+	public var oppPort:FlxSprite;
+	public var introtimer:FlxTimer;
+	public var bunsentwn:FlxTween;
+	public var nimtwn:FlxTween;
+	public var top:FlxSprite;
+	public var bottom:FlxSprite;
+	public var intro:FlxSound;
+	public var all:Array<FlxSprite>;
 	function versusIntro()
 		{
 			inCutscene = true;
 			camHUD.visible = false;
-			var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-			black.screenCenter(X);
-			black.scrollFactor.set();
-			add(black);
-			var vsbg:BGSprite = new BGSprite('VS/VSbg');
-			vsbg.screenCenter(X);
-			vsbg.screenCenter(Y);
+			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
+			FlxG.sound.list.add(intro);
+			top=new FlxSprite(0,-170).makeGraphic(1280,170,FlxColor.BLACK);
+			bottom=new FlxSprite(0,720).makeGraphic(1280,170,FlxColor.BLACK);
+			add(top);
+			add(bottom);
+			top.cameras=[camOther];
+			bottom.cameras=[camOther];
+			vsbg=new FlxSprite().loadGraphic(Paths.image("VS/VSbg"));
+			vsbg.setPosition(42,10);
 			add(vsbg);
 
-			var songName:String = Paths.formatToSongPath(SONG.song);
-			var nim:FlxSprite = new FlxSprite(1500, 300);
+			nim = new FlxSprite();
+			nim.setPosition(2000,450);
 			nim.frames = Paths.getSparrowAtlas('VS/portraits/ports');
-			var oppPort:FlxSprite = new FlxSprite();
+			oppPort = new FlxSprite();
+			oppPort.setPosition(-400,440);
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
-			
+			oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
 			add(nim);
-			switch(songName)
+			switch(curSong.toLowerCase())
 			{
-				case 'philly-fray':
-					oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
+				case 'philly fray':
 					oppPort.animation.play('bunsen');
-					oppPort.x = 400;
-					oppPort.y = 700;
 					add(oppPort);
 			}
+			all=[vsbg,nim,oppPort,top,bottom];
+			introtimer=new FlxTimer().start(0.5,function(fdks:FlxTimer){
+				intro.play(true);
+				FlxTween.tween(top,{y:-120},0.3,{ease:FlxEase.quintInOut});
+				FlxTween.tween(bottom,{y:670},0.3,{ease:FlxEase.quintInOut});
+				bunsentwn=FlxTween.tween(oppPort,{x:320},1.5,{
+					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
+						FlxTween.tween(oppPort,{x:345},5);
+					}
+				});
+				nimtwn=FlxTween.tween(nim,{x:1350},1.5,{
+						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
+							FlxG.sound.list.remove(intro);
+							FlxTween.tween(nim,{x:1320},5);
+						new FlxTimer().start(2.3,function(df:FlxTimer){
+							for(intro in all){
+								FlxTween.tween(intro,{alpha:0},1.5,{onComplete:function(dsfdfs:FlxTween){
+									remove(intro);
+									camHUD.visible=true;
+									startCountdown();
+								}});
+							}
+						});
+					}
+				});
+			});
 		}
 
 	function tankIntro()
@@ -2459,6 +2496,11 @@ class PlayState extends MusicBeatState
 				songSpeedTween.active = false;
 
 			if(carTimer != null) carTimer.active = false;
+
+			if(bunsentwn!=null&&nimtwn!=null){
+				bunsentwn.active=false;
+				nimtwn.active=false;
+			}
 
 			var chars:Array<Character> = [boyfriend, gf, dad];
 			for (char in chars) {
