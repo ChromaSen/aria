@@ -1495,6 +1495,7 @@ class PlayState extends MusicBeatState
 			
 			//filter=new ShaderFilter(VCR.shader);
 			//filter2=new ShaderFilter(new Chroma());
+			FlxG.camera.setFilters([new ShaderFilter(VHS)]);
 			FlxG.game.setFilters([Handler.abb]);
 			inCutscene = true;
 			camHUD.visible = false;
@@ -1556,6 +1557,7 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
 									FlxG.game.setFilters([]);
+									FlxG.camera.setFilters([]);
 									camHUD.visible=true;
 									startCountdown();
 								}});
