@@ -522,6 +522,11 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'kys':
+			var walterwhite:FlxSprite = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.WHITE);
+			walterwhite.screenCenter(X);
+			walterwhite.scrollFactor.set();
+			add(walterwhite);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -545,6 +550,7 @@ class PlayState extends MusicBeatState
 					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
+					add(rain);
 				}
 			case 'train_bg': //y2kuntz bg
 				defaultCamZoom=0.84;
@@ -557,6 +563,7 @@ class PlayState extends MusicBeatState
 				jaredfromsubway = new BGSprite('train/thejardfogle', -400, 430);
 				//add(jaredfromsubway);
 				bloom = new BGSprite('train/bloom', -250, -330);
+				bloom.scale.set(2,2);
 				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
 
 				 /* path, x, y, animation name,should it loop? */
@@ -572,14 +579,13 @@ class PlayState extends MusicBeatState
 			
 				for (i in 0...8)
 					{
-						rain=new FlxSprite (520, -700);
+						rain=new FlxSprite (900, -700);
 						rain.frames=Paths.getSparrowAtlas("train/rainscaled");
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 						rain.x = (i-1) * -300;
                     	rain.y = (i-1) * 700;
 						rain.scale.set(1.2, 1.2);
 						rain.animation.play("rainmove", true);	
-						add(rain);
 					}
 				cheekyrock();		
 		}
@@ -2228,6 +2234,19 @@ class PlayState extends MusicBeatState
 			vocals = new FlxSound();
 
 		vocals.pitch = playbackRate;
+
+		var songName:String = Paths.formatToSongPath(SONG.song);
+		if (isStoryMode)
+		{
+			switch(songName)
+			{
+				case 'philly-fray':
+					vocals=new FlxSound().loadEmbedded(Paths.voicesAttack(PlayState.SONG.song));
+				default:
+					vocals=new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+			}
+		}
+		
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 

@@ -229,7 +229,16 @@ class Paths
 		return voices;
 		#end
 	}
-
+	inline static public function voicesAttack(song:String):Any
+    {
+        #if html5
+        return 'songs:assets/songs/${formatToSongPath(song)}/Voices-Story.$SOUND_EXT';
+        #else
+        var songKey:String = '${formatToSongPath(song)}/Voices-Story';
+        var voices = returnSound('songs', songKey);
+        return voices;
+        #end
+    }
 	inline static public function inst(song:String):Any
 	{
 		#if html5
