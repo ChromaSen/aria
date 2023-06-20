@@ -41,6 +41,7 @@ import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
 import openfl.Lib;
+import openfl.utils.ByteArray;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.BitmapFilter;
@@ -64,7 +65,10 @@ import Conductor.Rating;
 import Sprites;
 import Shaders;
 import flixel.addons.display.FlxBackdrop;
-
+import Handler;
+import Shaders.VCRSHADER;
+import Shaders.VCREFFECT;
+import Chroma;
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -354,6 +358,10 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 
+
+	public static var filter:ShaderFilter;
+	public static var filter2:ShaderFilter;
+	public var sUPD:Array<Float->Void>=[];
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -1510,15 +1518,20 @@ class PlayState extends MusicBeatState
 	public var intro:FlxSound;
 	public var all:Array<FlxSprite>;
 	public var VHS:FlxRuntimeShader;
-	public var chr:FlxRuntimeShader;
+	public var VCR:VCREFFECT;
 	function versusIntro()
 		{
+			
 			var source:String=File.getContent(Paths.modsShaderFragment("vhs"));
 			VHS=new FlxRuntimeShader(source);
 			VHS.setFloat("iTime",0);
-
-
+			
+		//	VCR=new VCREFFECT(0.15,true,true,true);
+			
+			//filter=new ShaderFilter(VCR.shader);
+			//filter2=new ShaderFilter(new Chroma());
 			FlxG.camera.setFilters([new ShaderFilter(VHS)]);
+			FlxG.game.setFilters([Handler.abb]);
 			inCutscene = true;
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
@@ -1578,8 +1591,9 @@ class PlayState extends MusicBeatState
 							for(intro in all){
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
-									camHUD.visible=true;
+									FlxG.game.setFilters([]);
 									FlxG.camera.setFilters([]);
+									camHUD.visible=true;
 									startCountdown();
 								}});
 							}
@@ -2859,7 +2873,9 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+		
 
+		for (i in sUPD){i(elapsed);}
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
@@ -2875,11 +2891,13 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			}
 		}
-		
+		var off=2/1000;
 		if(inCutscene&&curSong.toLowerCase()=='philly fray')
 			{
 				VHS.setFloat("iTime",VHS.getFloat("iTime")+elapsed);
-				//chr.setFloat("iTime",chr.getFloat("iTime")+elapsed);
+				off=FlxG.random.int(1,3)/900;
+				off=FlxG.random.int(1,3)/1000;
+				Handler.chr(off);
 			}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)
