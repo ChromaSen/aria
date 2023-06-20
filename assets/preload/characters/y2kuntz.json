@@ -1,103 +1,114 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "kuntz idle"
+			"fps": 24,
+			"name": "kuntz idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				18,
 				4
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "kuntz left"
+			"fps": 24,
+			"name": "kuntz left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-51,
 				-21
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "kuntz right"
+			"fps": 24,
+			"name": "kuntz right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				28,
 				17
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "kuntz up"
+			"fps": 24,
+			"name": "kuntz up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-23,
 				-71
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "kuntz down"
+			"fps": 24,
+			"name": "kuntz down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				39,
 				-2
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "hurt",
-			"indices": [],
-			"name": "kuntz hurt"
+			"fps": 24,
+			"name": "kuntz hurt",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				70,
 				78
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "die",
-			"indices": [],
-			"name": "kuntz die"
+			"fps": 24,
+			"name": "kuntz die",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-48,
 				-11
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "shoot",
-			"indices": [],
-			"name": "kuntz shoot"
+			"fps": 24,
+			"name": "kuntz shoot",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-47,
 				-11
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "punch",
+			"fps": 24,
+			"name": "kuntz punch",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-49,
+				-14
+			],
 			"indices": [],
-			"name": "kuntz punch"
+			"fps": 24,
+			"anim": "punch_pre",
+			"loop": false,
+			"name": "kuntz prepare"
 		}
 	],
 	"no_antialiasing": false,

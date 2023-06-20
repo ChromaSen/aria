@@ -80,7 +80,7 @@ function onCreatePost()
 	setProperty("binej.alpha", 0.00001)
 	addLuaSprite("binej", true)
 	
-	setObjectOrder("overlay", getObjectOrder("binej") + 1)
+	setObjectOrder("blinglight2", getObjectOrder("binej") + 1)
 	
 	makeAnimatedLuaSprite("blood_bf", "mouthman/blood", bf_x + 150, bf_y - 125)
 	addAnimationByPrefix("blood_bf", "default", "bf", 24, true)

@@ -558,7 +558,7 @@ class PlayState extends MusicBeatState
 			backalley = new BGSprite('alley/alley', 0, -500);
 			spraycans = new BGSprite('alley/objects', 500, 300);
 			blinglight = new FlxSprite(-200, 400);
-			blinglight.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets");
+			blinglight.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets"); //uses spritesheets
 			blinglight.animation.addByPrefix("stageleft", "glow2 copy", 24, true);
 			blinglight.animation.play("stageleft");
 			blinglight2 = new FlxSprite(100, -400);
@@ -599,13 +599,13 @@ class PlayState extends MusicBeatState
 				add(train);
 				train.scale.set(1.2, 1.2);	
 			
-				for (i in 0...8)
+				for (i in 0...8) //makes 8 instances of rain
 					{
 						rain=new FlxSprite (900, -700);
 						rain.frames=Paths.getSparrowAtlas("train/rainscaled");
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
-						rain.x = (i-1) * -300;
-                    	rain.y = (i-1) * 700;
+						rain.x = (i-1) * -300; //adds -300 to x for each instance
+                    	rain.y = (i-1) * 700; //does the same thing but for y
 						rain.scale.set(1.2, 1.2);
 						rain.animation.play("rainmove", true);	
 						add(rain);

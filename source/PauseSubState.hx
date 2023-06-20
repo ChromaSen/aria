@@ -87,7 +87,7 @@ class PauseSubState extends MusicBeatSubstate
 		blacked.screenCenter(Y);
 		add(blacked);
 
-		var levelInfo:FlxText = new FlxText(20, 15 + 20, 0, "Now Playing: \n", 32);
+		var levelInfo:FlxText = new FlxText(20, 15 + 20, 0, "You have been listening to: \n", 32);
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("helvetica.ttf"), 32);
@@ -95,7 +95,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		var levelDifficulty:FlxText = new FlxText(20, 15 + 72, 0, "", 32);
 		levelDifficulty.text += CoolUtil.difficultyString();
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('helvetica.ttf'), 32);
