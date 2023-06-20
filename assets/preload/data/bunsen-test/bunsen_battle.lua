@@ -1,8 +1,6 @@
 local events = {
-	[1] = {"binej", 4, "punch"},
-	[12] = {"bf", 4, 16},
-	[28] = {"binej", 4, "punch"},
-	[48] = {"binej", 4, "punch"},
+	[6] = {"binej", 2, "punch"},
+	[28] = {"bf", 2, 16},
 }
 local event_index = 0
 local attacks_left = 5

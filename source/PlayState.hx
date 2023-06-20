@@ -271,6 +271,14 @@ class PlayState extends MusicBeatState
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
 	//ARIA ANIMATED SPRITES HERE
+
+	var alleybg:BGSprite;
+	var trafficlight:BGSprite;
+	var backalley:BGSprite;
+	var spraycans:BGSprite;
+	public var blinglight:FlxSprite;
+	public var blinglight2:FlxSprite;
+
 	public var building:FlxSprite;
 	public var train_bg:FlxSprite;
 	public var building2:FlxBackdrop;
@@ -542,8 +550,30 @@ class PlayState extends MusicBeatState
 					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
-					add(rain);
 				}
+			case 'alley': //bunsenbg
+			alleybg = new BGSprite('alley/bg0002', 300, -300);
+			alleybg.scrollFactor.set(0.7, 0.7);
+			trafficlight = new BGSprite('alley/trafficlight', 550, 200);
+			backalley = new BGSprite('alley/alley', 0, -500);
+			spraycans = new BGSprite('alley/objects', 500, 300);
+			blinglight = new FlxSprite(-200, 400);
+			blinglight.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets");
+			blinglight.animation.addByPrefix("stageleft", "glow2 copy", 24, true);
+			blinglight.animation.play("stageleft");
+			blinglight2 = new FlxSprite(100, -400);
+			blinglight2.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets");
+			blinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
+			blinglight2.animation.play("stageright");
+
+			blinglight.alpha = 0.4;
+			blinglight2.alpha = 0.4;
+
+			add(alleybg);
+			add(trafficlight);
+			add(backalley);
+			add(spraycans);
+				
 			case 'train_bg': //y2kuntz bg
 				defaultCamZoom=0.84;
 
@@ -578,6 +608,7 @@ class PlayState extends MusicBeatState
                     	rain.y = (i-1) * 700;
 						rain.scale.set(1.2, 1.2);
 						rain.animation.play("rainmove", true);	
+						add(rain);
 					}
 				cheekyrock();		
 		}
@@ -598,8 +629,8 @@ class PlayState extends MusicBeatState
 		if (curStage == 'limo')
 			add(limo);
 
-		add(dadGroup);
 		add(boyfriendGroup);
+		add(dadGroup);
 
 		switch(curStage)
 		{
@@ -607,9 +638,13 @@ class PlayState extends MusicBeatState
 				add(halloweenWhite);
 			case 'tank':
 				add(foregroundSprites);
+			case 'alley':
+				add(blinglight);
+				add(blinglight2);
 			case 'train_bg':
 				add(igotarock);
 				add(bloom);
+				add(rain);
 		}
 
 		#if LUA_ALLOWED

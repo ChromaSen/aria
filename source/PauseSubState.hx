@@ -14,13 +14,20 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
-
+#if !flash 
+import flixel.addons.display.FlxRuntimeShader;
+import openfl.filters.ShaderFilter;
+#end
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
-
+	public var VHS:FlxRuntimeShader;
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -67,29 +74,40 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
+		var source:String=File.getContent(Paths.modsShaderFragment("vhs"));
+		VHS=new FlxRuntimeShader(source);
+		VHS.setFloat("iTime",0);
+
+		FlxG.camera.setFilters([new ShaderFilter(VHS)]);
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
+		var blacked:FlxSprite = new FlxSprite(-480).makeGraphic(480, 720, FlxColor.BLACK);
+		blacked.screenCenter(Y);
+		add(blacked);
 
-		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
+		var levelInfo:FlxText = new FlxText(20, 15 + 20, 0, "Now Playing: \n", 32);
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
-		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+		levelInfo.setFormat(Paths.font("helvetica.ttf"), 32);
+		levelInfo.antialiasing = ClientPrefs.globalAntialiasing;
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
+		var levelDifficulty:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
 		levelDifficulty.text += CoolUtil.difficultyString();
 		levelDifficulty.scrollFactor.set();
-		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+		levelDifficulty.setFormat(Paths.font('helvetica.ttf'), 32);
+		levelDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
-		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		var blueballedTxt:FlxText = new FlxText(20, 15 + 128, 0, "", 32);
 		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
-		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
+		blueballedTxt.setFormat(Paths.font('helvetica.ttf'), 32);
+		blueballedTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		blueballedTxt.updateHitbox();
 		add(blueballedTxt);
 
@@ -97,6 +115,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.scrollFactor.set();
 		practiceText.setFormat(Paths.font('vcr.ttf'), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
+		practiceText.antialiasing = ClientPrefs.globalAntialiasing;
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.instance.practiceMode;
 		add(practiceText);
@@ -104,8 +123,7 @@ class PauseSubState extends MusicBeatSubstate
 		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
 		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font('vcr.ttf'), 32);
-		chartingText.x = FlxG.width - (chartingText.width + 20);
-		chartingText.y = FlxG.height - (chartingText.height + 20);
+		chartingText.antialiasing = ClientPrefs.globalAntialiasing;
 		chartingText.updateHitbox();
 		chartingText.visible = PlayState.chartingMode;
 		add(chartingText);
@@ -114,12 +132,15 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
 
-		levelInfo.x = FlxG.width - (levelInfo.width + 20);
-		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
-		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
-
+		practiceText.x = 460;
+		chartingText.x = FlxG.width - (chartingText.width + 20);
+		chartingText.y = FlxG.height - (chartingText.height + 20);
+		levelInfo.x = 480;
+		levelDifficulty.x = 480;
+		blueballedTxt.x = 480;
+		FlxTween.tween(blacked, {x:0}, {ease: FlxEase.quintOut});
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quintOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
@@ -134,6 +155,7 @@ class PauseSubState extends MusicBeatSubstate
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
 	{
+		VHS.setFloat("iTime",VHS.getFloat("iTime")+elapsed);
 		cantUnpause -= elapsed;
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
@@ -208,6 +230,7 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
+					FlxG.camera.setFilters([]);
 					close();
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
