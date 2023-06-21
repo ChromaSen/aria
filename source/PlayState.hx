@@ -1530,8 +1530,7 @@ class PlayState extends MusicBeatState
 			
 			//filter=new ShaderFilter(VCR.shader);
 			//filter2=new ShaderFilter(new Chroma());
-			FlxG.camera.setFilters([new ShaderFilter(VHS)]);
-			FlxG.game.setFilters([Handler.abb]);
+			FlxG.game.setFilters([Handler.abb,new ShaderFilter(VHS)]);
 			inCutscene = true;
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
@@ -1577,12 +1576,12 @@ class PlayState extends MusicBeatState
 				intro.play(true);
 				FlxTween.tween(top,{x:0},1,{ease:FlxEase.quintInOut});
 				FlxTween.tween(bottom,{x:0},1,{ease:FlxEase.quintInOut});
-				bunsentwn=FlxTween.tween(oppPort,{x:320},1.2,{
+				bunsentwn=FlxTween.tween(oppPort,{x:320},0.75,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
 						FlxTween.tween(oppPort,{x:345},5);
 					}
 				});
-				nimtwn=FlxTween.tween(nim,{x:1350},1.2,{
+				nimtwn=FlxTween.tween(nim,{x:1350},0.75,{
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
 							FlxTween.tween(nim,{x:1320},5);
@@ -1592,7 +1591,6 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
 									FlxG.game.setFilters([]);
-									FlxG.camera.setFilters([]);
 									camHUD.visible=true;
 									startCountdown();
 								}});
