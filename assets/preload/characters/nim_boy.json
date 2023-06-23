@@ -164,6 +164,28 @@
 			"anim": "dodgeMISS",
 			"loop": false,
 			"name": "nim near miss"
+		},
+		{
+			"offsets": [
+				52,
+				-29
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "pre-attack",
+			"loop": false,
+			"name": "nim attack prepare"
+		},
+		{
+			"offsets": [
+				571,
+				-25
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "mic-attack",
+			"loop": false,
+			"name": "nim mic attack"
 		}
 	],
 	"no_antialiasing": false,

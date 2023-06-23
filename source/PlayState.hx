@@ -2889,6 +2889,13 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			}
 		}
+		if (FlxG.keys.justPressed.THREE && startedCountdown && canPause)
+			{
+				var ret:Dynamic = callOnLuas('onPause', [], false);
+				if(ret != FunkinLua.Function_Stop) {
+					openDEBUGPauseMenu();
+				}
+			}
 		var off=2/1000;
 		if(inCutscene&&curSong.toLowerCase()=='philly fray')
 			{
@@ -3213,7 +3220,35 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 	}
-
+	/*You may be asking, "Razrs, why did you make this unecessary function?" 
+	This is only going to be used for debugging purposes and will not be put into release, along with other 
+	debug features & keys like char editor. Plus, I don't wanna lose the debug features that the regular pause menu has in charting mode.
+	*/
+	function openDEBUGPauseMenu()
+		{
+			persistentUpdate = false;
+			persistentDraw = true;
+			paused = true;
+	
+			// 1 / 1000 chance for Gitaroo Man easter egg
+			/*if (FlxG.random.bool(0.1))
+			{
+				// gitaroo man easter egg
+				cancelMusicFadeTween();
+				MusicBeatState.switchState(new GitarooPause());
+			}
+			else {*/
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.pause();
+				vocals.pause();
+			}
+			openSubState(new DebugPause(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			//}
+	
+			#if desktop
+			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			#end
+		}
 	function openChartEditor()
 	{
 		persistentUpdate = false;
