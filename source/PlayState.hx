@@ -1535,8 +1535,8 @@ class PlayState extends MusicBeatState
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
 			FlxG.sound.list.add(intro);
-			top=new FlxSprite(1300,-120).makeGraphic(1280,170,FlxColor.BLACK);
-			bottom=new FlxSprite(-1300,670).makeGraphic(1280,170,FlxColor.BLACK);
+			top=new FlxSprite(1300,-110).loadGraphic(Paths.image("VS/vstop"));
+			bottom=new FlxSprite(-1300,570).loadGraphic(Paths.image("VS/vsbottom"));
 			add(top);
 			add(bottom);
 			top.cameras=[camOther];
@@ -1578,13 +1578,13 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(bottom,{x:0},1,{ease:FlxEase.quintInOut});
 				bunsentwn=FlxTween.tween(oppPort,{x:320},0.75,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
-						FlxTween.tween(oppPort,{x:345},5);
+						FlxTween.tween(oppPort,{x:370},5);
 					}
 				});
 				nimtwn=FlxTween.tween(nim,{x:1350},0.75,{
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
-							FlxTween.tween(nim,{x:1320},5);
+							FlxTween.tween(nim,{x:1300},5);
 							
 						new FlxTimer().start(2.3,function(df:FlxTimer){
 							for(intro in all){
@@ -1596,6 +1596,7 @@ class PlayState extends MusicBeatState
 								}});
 							}
 						});
+						
 						
 					}
 				});

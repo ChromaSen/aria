@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -24,7 +25,7 @@ import sys.io.File;
 #end
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
+	var grpMenuShit:FlxTypedGroup<FlxText>;
 	public var VHS:FlxRuntimeShader;
 	var menuItems:Array<String> = [];
 	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
@@ -34,11 +35,17 @@ class PauseSubState extends MusicBeatSubstate
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
 	var skipTimeText:FlxText;
-	var skipTimeTracker:Alphabet;
+	var skipTimeTracker:FlxText;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	//var botplayText:FlxText;
 
 	public static var songName:String = '';
+
+	public var bg:FlxSprite;
+	public var blacked:FlxSprite;	
+	public var levelInfo:FlxText;
+	public var levelDifficulty:FlxText;
+	public var blueballedTxt:FlxText;
 
 	public function new(x:Float, y:Float)
 	{
@@ -79,15 +86,15 @@ class PauseSubState extends MusicBeatSubstate
 		VHS.setFloat("iTime",0);
 
 		FlxG.camera.setFilters([new ShaderFilter(VHS)]);
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
-		var blacked:FlxSprite = new FlxSprite(-480).makeGraphic(480, 720, FlxColor.BLACK);
+		blacked = new FlxSprite(-480).makeGraphic(480, 720, FlxColor.BLACK);
 		blacked.screenCenter(Y);
 		add(blacked);
 
-		var levelInfo:FlxText = new FlxText(20, 15 + 20, 0, "You have been listening to: \n", 32);
+		levelInfo = new FlxText(20, 15 + 20, 0, "You have been listening to: \n", 32);
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("helvetica.ttf"), 32);
@@ -95,7 +102,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 72, 0, "", 32);
+		levelDifficulty= new FlxText(20, 15 + 72, 0, "", 32);
 		levelDifficulty.text += CoolUtil.difficultyString();
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('helvetica.ttf'), 32);
@@ -103,7 +110,7 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
-		var blueballedTxt:FlxText = new FlxText(20, 15 + 128, 0, "", 32);
+		blueballedTxt = new FlxText(20, 15 + 128, 0, "", 32);
 		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('helvetica.ttf'), 32);
@@ -144,7 +151,7 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
+		grpMenuShit = new FlxTypedGroup<FlxText>();
 		add(grpMenuShit);
 
 		regenMenu();
@@ -209,6 +216,15 @@ class PauseSubState extends MusicBeatSubstate
 
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
 		{
+			/*
+			new FlxTimer().start(0.5,function(fdsdsfk:FlxTimer){
+				FlxTween.tween(blacked, {x:480}, {ease: FlxEase.quintOut});
+				FlxTween.tween(bg, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(levelInfo, {alpha: 0, y: 480}, 0.4, {ease: FlxEase.quintOut});
+				FlxTween.tween(levelDifficulty, {alpha: 0, y: levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y - 5}, 0.4, {ease: FlxEase.quartInOut});
+			});
+			*/
 			if (menuItems == difficultyChoices)
 			{
 				if(menuItems.length - 1 != curSelected && difficultyChoices.contains(daSelected)) {
@@ -284,6 +300,10 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}
+			curSelected=0;
+			for (item in grpMenuShit.members){
+				item.alpha=0.6;
+			}
 		}
 	}
 
@@ -326,36 +346,24 @@ class PauseSubState extends MusicBeatSubstate
 	function changeSelection(change:Int = 0):Void
 	{
 		curSelected += change;
-
+	
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-
-		if (curSelected < 0)
+	
+		if (curSelected < 0) {
 			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
-
-		var bullShit:Int = 0;
-
-		for (item in grpMenuShit.members)
-		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
-
-			if (item.targetY == 0)
-			{
-				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
-
-				if(item == skipTimeTracker)
-				{
-					curTime = Math.max(0, Conductor.songPosition);
-					updateSkipTimeText();
-				}
-			}
 		}
+	
+		if (curSelected >= menuItems.length) {
+			curSelected = 0;
+		}
+	
+		for (item in grpMenuShit.members) {
+			item.alpha=0.6;
+		}
+	
+		var itm=grpMenuShit.members[curSelected];
+		itm.alpha=1;
+	
 	}
 
 	function regenMenu():Void {
@@ -367,24 +375,22 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new Alphabet(90, 320, menuItems[i], true);
-			item.isMenuItem = true;
-			item.targetY = i;
+			var item=new FlxText(90,190+i*110,0,menuItems[i]);
+			item.setFormat(Paths.font("helvetica.ttf"),64,FlxColor.WHITE,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+			item.borderSize=2;
 			grpMenuShit.add(item);
-
-			if(menuItems[i] == 'Skip Time')
-			{
+		
+			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				skipTimeText.scrollFactor.set();
 				skipTimeText.borderSize = 2;
-				skipTimeTracker = item;
 				add(skipTimeText);
-
+		
 				updateSkipTextStuff();
 				updateSkipTimeText();
 			}
-		}
+		}	
 		curSelected = 0;
 		changeSelection();
 	}
