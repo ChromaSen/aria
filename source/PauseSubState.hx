@@ -226,6 +226,7 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(levelInfo,{alpha:0,y:-480},0.4,{ease:FlxEase.quintOut});
 				FlxTween.tween(levelDifficulty, {alpha: 0, y:levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y - 5}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(item,{x:-130},0.5,{ease:FlxEase.quartInOut});
 			}
 			if (menuItems == difficultyChoices)
 			{
@@ -399,12 +400,6 @@ class PauseSubState extends MusicBeatSubstate
 				updateSkipTimeText();
 			}
 		}
-		// this specific tweening of the text doesnt work if you press controls accept for some reason :///
-		/*
-		if(accepted){
-			FlxTween.tween(item,{x:-90},0.5,{ease:FlxEase.quartInOut});
-		}
-		*/
 		curSelected = 0;
 		changeSelection();
 	}
