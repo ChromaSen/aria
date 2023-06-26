@@ -15,6 +15,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
+import haxe.ds.Option;
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -46,7 +47,8 @@ class PauseSubState extends MusicBeatSubstate
 	public var levelInfo:FlxText;
 	public var levelDifficulty:FlxText;
 	public var blueballedTxt:FlxText;
-
+	public var item:FlxText;
+	public var accepted:Bool;
 	public function new(x:Float, y:Float)
 	{
 		super();
@@ -172,7 +174,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
-		var accepted = controls.ACCEPT;
+		accepted = controls.ACCEPT;
 
 		if (upP)
 		{
@@ -215,16 +217,16 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
-		{
-			/*
-			new FlxTimer().start(0.5,function(fdsdsfk:FlxTimer){
-				FlxTween.tween(blacked, {x:480}, {ease: FlxEase.quintOut});
-				FlxTween.tween(bg, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
-				FlxTween.tween(levelInfo, {alpha: 0, y: 480}, 0.4, {ease: FlxEase.quintOut});
-				FlxTween.tween(levelDifficulty, {alpha: 0, y: levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
+		{	
+			//checks if the current selection isnt the ones that in array. if it's not, it will do the tweening
+			//made it because if you wanna restart the song for example, the tweening will just look off lol
+			if(!check(daSelected,["Change Difficulty","Restart Song","Leave Charting Mode","End Song","Skip Time","Toggle Botplay","Exit to menu"])){
+				FlxTween.tween(blacked,{x:-480},{ease:FlxEase.quintOut});
+				FlxTween.tween(bg,{alpha:0},0.4,{ease:FlxEase.quartInOut});
+				FlxTween.tween(levelInfo,{alpha:0,y:-480},0.4,{ease:FlxEase.quintOut});
+				FlxTween.tween(levelDifficulty, {alpha: 0, y:levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y - 5}, 0.4, {ease: FlxEase.quartInOut});
-			});
-			*/
+			}
 			if (menuItems == difficultyChoices)
 			{
 				if(menuItems.length - 1 != curSelected && difficultyChoices.contains(daSelected)) {
@@ -243,70 +245,77 @@ class PauseSubState extends MusicBeatSubstate
 				regenMenu();
 			}
 
-			switch (daSelected)
-			{
-				case "Resume":
-					FlxG.camera.setFilters([]);
-					close();
-				case 'Change Difficulty':
-					menuItems = difficultyChoices;
-					deleteSkipTimeText();
-					regenMenu();
-				case 'Toggle Practice Mode':
-					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
-					PlayState.changedDifficulty = true;
-					practiceText.visible = PlayState.instance.practiceMode;
-				case "Restart Song":
-					restartSong();
-				case "Leave Charting Mode":
-					restartSong();
-					PlayState.chartingMode = false;
-				case 'Skip Time':
-					if(curTime < Conductor.songPosition)
+				new FlxTimer().start(0.8,function(dyfjdjfghfjgh:FlxTimer){
+					switch (daSelected)
 					{
-						PlayState.startOnTime = curTime;
-						restartSong(true);
+						case "Resume":
+							FlxG.camera.setFilters([]);
+							close();
+						case 'Change Difficulty':
+							menuItems = difficultyChoices;
+							deleteSkipTimeText();
+							regenMenu();
+						case 'Toggle Practice Mode':
+							PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
+							PlayState.changedDifficulty = true;
+							practiceText.visible = PlayState.instance.practiceMode;
+						case "Restart Song":
+							restartSong();
+						case "Leave Charting Mode":
+							restartSong();
+							PlayState.chartingMode = false;
+						case 'Skip Time':
+							if(curTime < Conductor.songPosition)
+							{
+								PlayState.startOnTime = curTime;
+								restartSong(true);
+							}
+							else
+							{
+								if (curTime != Conductor.songPosition)
+								{
+									PlayState.instance.clearNotesBefore(curTime);
+									PlayState.instance.setSongTime(curTime);
+								}
+								close();
+							}
+						case "End Song":
+							close();
+							PlayState.instance.finishSong(true);
+						case 'Toggle Botplay':
+							PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
+							PlayState.changedDifficulty = true;
+							PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
+							PlayState.instance.botplayTxt.alpha = 1;
+							PlayState.instance.botplaySine = 0;
+						case "Exit to menu":
+							PlayState.deathCounter = 0;
+							PlayState.seenCutscene = false;
+		
+							WeekData.loadTheFirstEnabledMod();
+							if(PlayState.isStoryMode) {
+								MusicBeatState.switchState(new MainMenuState()); //Takes player back to main menu instead.
+							} else {
+								MusicBeatState.switchState(new FreeplayState());
+							}
+							PlayState.cancelMusicFadeTween();
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							PlayState.changedDifficulty = false;
+							PlayState.chartingMode = false;
 					}
-					else
-					{
-						if (curTime != Conductor.songPosition)
-						{
-							PlayState.instance.clearNotesBefore(curTime);
-							PlayState.instance.setSongTime(curTime);
-						}
-						close();
-					}
-				case "End Song":
-					close();
-					PlayState.instance.finishSong(true);
-				case 'Toggle Botplay':
-					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
-					PlayState.changedDifficulty = true;
-					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
-					PlayState.instance.botplayTxt.alpha = 1;
-					PlayState.instance.botplaySine = 0;
-				case "Exit to menu":
-					PlayState.deathCounter = 0;
-					PlayState.seenCutscene = false;
+				});
 
-					WeekData.loadTheFirstEnabledMod();
-					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new MainMenuState()); //Takes player back to main menu instead.
-					} else {
-						MusicBeatState.switchState(new FreeplayState());
-					}
-					PlayState.cancelMusicFadeTween();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					PlayState.changedDifficulty = false;
-					PlayState.chartingMode = false;
-			}
 			curSelected=0;
 			for (item in grpMenuShit.members){
 				item.alpha=0.6;
 			}
 		}
 	}
-
+	function check(daselected:String,opt:Array<String>):Bool{
+		return Lambda.exists(opt,function(option){
+			return option==daselected;
+		});
+	}
 	function deleteSkipTimeText()
 	{
 		if(skipTimeText != null)
@@ -373,13 +382,12 @@ class PauseSubState extends MusicBeatSubstate
 			grpMenuShit.remove(obj, true);
 			obj.destroy();
 		}
-
 		for (i in 0...menuItems.length) {
-			var item=new FlxText(90,190+i*110,0,menuItems[i]);
+			item=new FlxText(-90,190+i*110,0,menuItems[i]);
 			item.setFormat(Paths.font("helvetica.ttf"),64,FlxColor.WHITE,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 			item.borderSize=2;
 			grpMenuShit.add(item);
-		
+			FlxTween.tween(item,{x:50},0.8,{ease:FlxEase.quartInOut});
 			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -390,7 +398,13 @@ class PauseSubState extends MusicBeatSubstate
 				updateSkipTextStuff();
 				updateSkipTimeText();
 			}
-		}	
+		}
+		// this specific tweening of the text doesnt work if you press controls accept for some reason :///
+		/*
+		if(accepted){
+			FlxTween.tween(item,{x:-90},0.5,{ease:FlxEase.quartInOut});
+		}
+		*/
 		curSelected = 0;
 		changeSelection();
 	}
