@@ -928,7 +928,8 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("newrodin.otf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -1080,7 +1081,7 @@ class PlayState extends MusicBeatState
 
 				case 'ugh' | 'guns' | 'stress':
 					tankIntro();
-				case 'philly-fray' | 'bling':
+				case 'philly-fray' | 'bling' | 'dope' | 'kokoro':
 					versusIntro();
 				default:
 					startCountdown();
@@ -1519,6 +1520,7 @@ class PlayState extends MusicBeatState
 	public var all:Array<FlxSprite>;
 	public var VHS:FlxRuntimeShader;
 	public var VCR:VCREFFECT;
+	public var vsicon:FlxSprite;
 	function versusIntro()
 		{
 			
@@ -1535,8 +1537,14 @@ class PlayState extends MusicBeatState
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
 			FlxG.sound.list.add(intro);
-			top=new FlxSprite(1300,-110).loadGraphic(Paths.image("VS/vstop"));
-			bottom=new FlxSprite(-1300,570).loadGraphic(Paths.image("VS/vsbottom"));
+			top=new FlxSprite(0,-262).loadGraphic(Paths.image("VS/vstopbar"));
+			top.scale.x = 0.9;
+			top.scale.y = 0.9;
+			bottom=new FlxSprite(0,1000).loadGraphic(Paths.image("VS/vsbottombar"));
+			bottom.scale.x = 0.9;
+			bottom.scale.y = 0.9;
+			top.screenCenter(X);
+			bottom.screenCenter(X);
 			add(top);
 			add(bottom);
 			top.cameras=[camOther];
@@ -1546,10 +1554,10 @@ class PlayState extends MusicBeatState
 			add(vsbg);
 
 			nim = new FlxSprite();
-			nim.setPosition(2000,450);
+			nim.setPosition(2000,250);
 			nim.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 			oppPort = new FlxSprite();
-			oppPort.setPosition(-400,440);
+			oppPort.setPosition(-400,300);
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 
 			oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
@@ -1559,6 +1567,12 @@ class PlayState extends MusicBeatState
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
 			add(nim);
+
+			vsicon=new FlxSprite().loadGraphic(Paths.image("VS/VS"));
+			vsicon.setPosition(42,10);
+			vsicon.screenCenter(X);
+			add(vsicon);
+
 			switch(curSong.toLowerCase())
 			{
 				case 'philly fray':
@@ -1571,11 +1585,11 @@ class PlayState extends MusicBeatState
 					oppPort.animation.play('bo');
 					add(oppPort);
 			}
-			all=[vsbg,nim,oppPort,top,bottom];
+			all=[vsbg,nim,oppPort,top,bottom,vsicon];
 			introtimer=new FlxTimer().start(0.5,function(fdks:FlxTimer){
 				intro.play(true);
-				FlxTween.tween(top,{x:0},1,{ease:FlxEase.quintInOut});
-				FlxTween.tween(bottom,{x:0},1,{ease:FlxEase.quintInOut});
+				FlxTween.tween(top,{y:-50},1,{ease:FlxEase.quintOut});
+				FlxTween.tween(bottom,{y:500},1,{ease:FlxEase.quintOut});
 				bunsentwn=FlxTween.tween(oppPort,{x:320},0.75,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
 						FlxTween.tween(oppPort,{x:370},5);

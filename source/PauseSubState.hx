@@ -246,66 +246,64 @@ class PauseSubState extends MusicBeatSubstate
 				regenMenu();
 			}
 
-				new FlxTimer().start(0.8,function(dyfjdjfghfjgh:FlxTimer){
-					switch (daSelected)
+			switch (daSelected)
+			{
+				case "Resume":
+				FlxG.camera.setFilters([]);
+				close();
+				case 'Change Difficulty':
+					menuItems = difficultyChoices;
+					deleteSkipTimeText();
+					regenMenu();
+				case 'Toggle Practice Mode':
+					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
+					PlayState.changedDifficulty = true;
+					practiceText.visible = PlayState.instance.practiceMode;
+				case "Restart Song":
+					restartSong();
+				case "Leave Charting Mode":
+					restartSong();
+					PlayState.chartingMode = false;
+				case 'Skip Time':
+					if(curTime < Conductor.songPosition)
 					{
-						case "Resume":
-							FlxG.camera.setFilters([]);
-							close();
-						case 'Change Difficulty':
-							menuItems = difficultyChoices;
-							deleteSkipTimeText();
-							regenMenu();
-						case 'Toggle Practice Mode':
-							PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
-							PlayState.changedDifficulty = true;
-							practiceText.visible = PlayState.instance.practiceMode;
-						case "Restart Song":
-							restartSong();
-						case "Leave Charting Mode":
-							restartSong();
-							PlayState.chartingMode = false;
-						case 'Skip Time':
-							if(curTime < Conductor.songPosition)
-							{
-								PlayState.startOnTime = curTime;
-								restartSong(true);
-							}
-							else
-							{
-								if (curTime != Conductor.songPosition)
-								{
-									PlayState.instance.clearNotesBefore(curTime);
-									PlayState.instance.setSongTime(curTime);
-								}
-								close();
-							}
-						case "End Song":
-							close();
-							PlayState.instance.finishSong(true);
-						case 'Toggle Botplay':
-							PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
-							PlayState.changedDifficulty = true;
-							PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
-							PlayState.instance.botplayTxt.alpha = 1;
-							PlayState.instance.botplaySine = 0;
-						case "Exit to menu":
-							PlayState.deathCounter = 0;
-							PlayState.seenCutscene = false;
-		
-							WeekData.loadTheFirstEnabledMod();
-							if(PlayState.isStoryMode) {
-								MusicBeatState.switchState(new MainMenuState()); //Takes player back to main menu instead.
-							} else {
-								MusicBeatState.switchState(new FreeplayState());
-							}
-							PlayState.cancelMusicFadeTween();
-							FlxG.sound.playMusic(Paths.music('freakyMenu'));
-							PlayState.changedDifficulty = false;
-							PlayState.chartingMode = false;
+						PlayState.startOnTime = curTime;
+						restartSong(true);
 					}
-				});
+					else
+					{
+						if (curTime != Conductor.songPosition)
+						{
+							PlayState.instance.clearNotesBefore(curTime);
+							PlayState.instance.setSongTime(curTime);
+						}
+						close();
+					}
+					FlxG.camera.setFilters([]);
+				case "End Song":
+					close();
+					PlayState.instance.finishSong(true);
+				case 'Toggle Botplay':
+					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
+					PlayState.changedDifficulty = true;
+					PlayState.instance.botplayTxt.visible = PlayState.instance.cpuControlled;
+					PlayState.instance.botplayTxt.alpha = 1;
+					PlayState.instance.botplaySine = 0;
+				case "Exit to menu":
+					PlayState.deathCounter = 0;
+					PlayState.seenCutscene = false;
 
+					WeekData.loadTheFirstEnabledMod();
+					if(PlayState.isStoryMode) {
+						MusicBeatState.switchState(new MainMenuState()); //Takes player back to main menu instead.
+					} else {
+						MusicBeatState.switchState(new FreeplayState());
+					}
+					PlayState.cancelMusicFadeTween();
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					PlayState.changedDifficulty = false;
+					PlayState.chartingMode = false;
+			}
 			curSelected=0;
 			for (item in grpMenuShit.members){
 				item.alpha=0.6;
@@ -384,11 +382,11 @@ class PauseSubState extends MusicBeatSubstate
 			obj.destroy();
 		}
 		for (i in 0...menuItems.length) {
-			item=new FlxText(-90,190+i*110,0,menuItems[i]);
+			item=new FlxText(-480,190+i*110,0,menuItems[i]);
 			item.setFormat(Paths.font("helvetica.ttf"),64,FlxColor.WHITE,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-			item.borderSize=2;
+			item.antialiasing = ClientPrefs.globalAntialiasing;
 			grpMenuShit.add(item);
-			FlxTween.tween(item,{x:50},0.8,{ease:FlxEase.quartInOut});
+			FlxTween.tween(item,{x:0},0.8,{ease:FlxEase.quartOut});
 			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
