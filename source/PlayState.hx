@@ -574,8 +574,8 @@ class PlayState extends MusicBeatState
 			blinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
 			blinglight2.animation.play("stageright");
 
-			blinglight.alpha = 0.4;
-			blinglight2.alpha = 0.4;
+			blinglight.alpha = 0.05;
+			blinglight2.alpha = 0.05;
 
 			add(alleybg);
 			add(trafficlight);
@@ -1528,11 +1528,7 @@ class PlayState extends MusicBeatState
 			VHS=new FlxRuntimeShader(source);
 			VHS.setFloat("iTime",0);
 			
-		//	VCR=new VCREFFECT(0.15,true,true,true);
-			
-			//filter=new ShaderFilter(VCR.shader);
-			//filter2=new ShaderFilter(new Chroma());
-			FlxG.game.setFilters([Handler.abb,new ShaderFilter(VHS)]);
+			FlxG.game.setFilters([new ShaderFilter(VHS)]);
 			inCutscene = true;
 			camHUD.visible = false;
 			intro=new FlxSound().loadEmbedded(Paths.sound('BATTLE_INTRODUCTION'));
@@ -1569,9 +1565,11 @@ class PlayState extends MusicBeatState
 			add(nim);
 
 			vsicon=new FlxSprite().loadGraphic(Paths.image("VS/VS"));
-			vsicon.setPosition(42,10);
-			vsicon.screenCenter(X);
+			vsicon.setPosition(-297,-140);
+			vsicon.updateHitbox();
+			vsicon.scale.set(0.8,0.8);
 			add(vsicon);
+			vsicon.cameras=[camOther];
 
 			switch(curSong.toLowerCase())
 			{
@@ -1585,7 +1583,7 @@ class PlayState extends MusicBeatState
 					oppPort.animation.play('bo');
 					add(oppPort);
 			}
-			all=[vsbg,nim,oppPort,top,bottom,vsicon];
+			all=[vsbg,nim,oppPort,vsicon];
 			introtimer=new FlxTimer().start(0.5,function(fdks:FlxTimer){
 				intro.play(true);
 				FlxTween.tween(top,{y:-50},1,{ease:FlxEase.quintOut});
@@ -1604,12 +1602,15 @@ class PlayState extends MusicBeatState
 							for(intro in all){
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
+									remove(bottom);
+									remove(top);
 									FlxG.game.setFilters([]);
 									camHUD.visible=true;
 									startCountdown();
 								}});
 							}
 						});
+						
 						
 						
 					}
