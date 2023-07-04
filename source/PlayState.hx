@@ -1081,7 +1081,7 @@ class PlayState extends MusicBeatState
 
 				case 'ugh' | 'guns' | 'stress':
 					tankIntro();
-				case 'philly-fray' | 'bling' | 'dope' | 'kokoro':
+				case 'philly-fray':
 					versusIntro();
 				default:
 					startCountdown();

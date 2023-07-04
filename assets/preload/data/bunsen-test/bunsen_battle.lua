@@ -1,6 +1,7 @@
 local events = {
 	[6] = {"binej", 2, "punch"},
-	[28] = {"bf", 2, 16},
+	[28] = {"bf", 1, 16},
+	[46] = {"bf", 1, 16}
 }
 local event_index = 0
 local attacks_left = 5
@@ -109,24 +110,26 @@ function onCreatePost()
 	setProperty("combo.alpha", 0.00001)
 	addLuaSprite("combo", true)
 	
-	makeAnimatedLuaSprite("bar", "mouthman/ui/bar_" .. bar_type, bf_x - 112, bf_y - 112)
-	addAnimationByPrefix("bar", "appear", "appear", 48, false)
-	addOffset("bar", "appear", 7, 34)
-	addAnimationByPrefix("bar", "bop", "bop", 24, false)
+	makeAnimatedLuaSprite("bar", "battle/ui/attackbar", bf_x - 112, bf_y - 112)
+	addAnimationByPrefix("bar", "appear", "ATTACKBAR_APPEAR", 24, false)
+	addOffset("bar", "appear", 19, 137)
+	addAnimationByPrefix("bar", "bop", "ATTACKBAR_BUMP", 24, false)
+	addAnimationByPrefix("bar", "hit", "ATTACKBAR_HIT", 24, false)
+	addAnimationByPrefix("bar", "disappear", "ATTACKBAR_DISAPPEAR", 24, false)
 	addOffset("bar", "bop", 3, 35)
-	scaleObject("bar", 0.9, 0.9)
+	--scaleObject("bar", 0.9, 0.9)
 	addLuaSprite("bar", true)
 	setProperty("bar.alpha", 0.00001)
 	
-	precacheImage("mouthman/ui/bar_normal")
-	precacheImage("mouthman/ui/bar_secret")
+	precacheImage("ARIA_BATTLE/ui/attackbar")
+	--precacheImage("mouthman/ui/bar_secret")
 	
-	makeAnimatedLuaSprite("bar_hit", "mouthman/ui/bar_hit_" .. bar_type, bf_x - 127, bf_y - 155)
-	addAnimationByPrefix("bar_hit", "perfect", "perfect", 24, false)
+	makeAnimatedLuaSprite("bar_hit", "battle/ui/attackbar_hit", bf_x - 127, bf_y - 155)
+	addAnimationByPrefix("bar_hit", "perfect", "PERFECT", 24, false)
 	addOffset("bar_hit", "perfect", 0, 10)
-	addAnimationByPrefix("bar_hit", "good", "good", 24, false)
+	addAnimationByPrefix("bar_hit", "good", "GOOD", 24, false)
 	addOffset("bar_hit", "good", 0, 11)
-	addAnimationByPrefix("bar_hit", "fail", "fail", 24, false)
+	addAnimationByPrefix("bar_hit", "fail", "SHIT", 24, false)
 	addOffset("bar_hit", "fail", -2, 5)
 	scaleObject("bar_hit", 0.9, 0.9)
 	addLuaSprite("bar_hit", true)
@@ -150,18 +153,18 @@ function onCreatePost()
 	setProperty("arrow_hit.alpha", 0.00001)
 	addLuaSprite("arrow_hit", true)
 	
-	makeAnimatedLuaSprite("space", "mouthman/ui/space", middlescroll and 508 or 825, downscroll and 105 or 165)
-	addAnimationByPrefix("space", "bop", "bop", 24, false)
+	makeAnimatedLuaSprite("space", "battle/ui/PRESS_SPACE", middlescroll and 508 or 825, downscroll and 105 or 165)
+	addAnimationByPrefix("space", "bop", "press_bop", 24, false)
 	addOffset("space", "bop", 7, 10)
-	addAnimationByPrefix("space", "pressed", "pressed", 24, false)
+	addAnimationByPrefix("space", "pressed", "press_disappear", 24, false)
 	addOffset("space", "bop", 6, 8)
-	scaleObject("space", 0.94, 0.94)
 	setProperty("space.alpha", 0.00001)
+	scaleObject("space", 1.2, 1.2)
 	setObjectCamera("space", "hud")
 	addLuaSprite("space", true)
 	
-	makeAnimatedLuaSprite("space_death", "mouthman/ui/space_death", middlescroll and 470 or 787, downscroll and 62 or 122)
-	addAnimationByPrefix("space_death", "bop", "bop", 24, false)
+	makeAnimatedLuaSprite("space_death", "battle/ui/HOLD_SPACE", middlescroll and 470 or 787, downscroll and 62 or 122)
+	addAnimationByPrefix("space_death", "bop", "HOLD_SPACE", 24, false)
 	setProperty("space_death.alpha", 0.00001)
 	setObjectCamera("space_death", "hud")
 	addLuaSprite("space_death", true)
@@ -495,8 +498,8 @@ function onUpdatePost()
 				
 				scaleObject("counter", 1, 1)
 				playAnim("counter", tostring(beats), true)
-				doTweenX("counter_zoom_out_x", "counter.scale", 0.75, 0.25, "backinout")
-				doTweenY("counter_zoom_out_y", "counter.scale", 0.75, 0.25, "backinout")
+				--doTweenX("counter_zoom_out_x", "counter.scale", 0.75, 0.25, "backinout")
+				--doTweenY("counter_zoom_out_y", "counter.scale", 0.75, 0.25, "backinout")
 				doTweenAlpha("counter_fadeout", "counter", 0, 0.75, "quartin")
 				
 				playSound("clickText", 0.7)
@@ -543,20 +546,19 @@ function onStepHit()
 				texture = "normal"
 			end
 			
-			loadFrames("bar", "mouthman/ui/bar_" .. texture)
-			loadFrames("bar_hit", "mouthman/ui/bar_hit_" .. texture)
+			loadFrames("bar", "battle/ui/attackbar")
+			loadFrames("bar_hit", "battle/ui/attackbar_hit")
 			
-			addAnimationByPrefix("bar", "appear", "appear", 48, false)
-			addOffset("bar", "appear", 7, 34)
-			addAnimationByPrefix("bar", "bop", "bop", 24, false)
-			addOffset("bar", "bop", 3, 35)
+			addAnimationByPrefix("bar", "appear", "ATTACKBAR_APPEAR", 48, false)
+			addOffset("bar", "appear", 19, 137)
+			addAnimationByPrefix("bar", "bop", "ATTACKBAR_BUMP", 24, false)
 			
 			setProperty("bar.alpha", 1)
 			playAnim("bar", "appear", true)
 			
-			addAnimationByPrefix("bar_hit", "perfect", "perfect", 24, false)
-			addAnimationByPrefix("bar_hit", "good", "good", 24, false)
-			addAnimationByPrefix("bar_hit", "fail", "fail", 24, false)
+			addAnimationByPrefix("bar_hit", "perfect", "PERFECT", 24, false)
+			addAnimationByPrefix("bar_hit", "good", "GOOD", 24, false)
+			addAnimationByPrefix("bar_hit", "fail", "SHIT", 24, false)
 			
 			doTweenAlpha("arrow_fadein", "arrow", 1, 0.25, "circin")
 		else
@@ -596,7 +598,7 @@ function onStepHit()
 		end
 		
 		callScript("scripts/neocam", "focus", {player and "bf_attack" or "binej_attack", 0.75, "circout", true})
-		callScript("scripts/neocam", "zoom", {"game", 0.85, 0})
+		--callScript("scripts/neocam", "zoom", {"game", 0.85, 0})
 	end
 	
 	if active and curStep % 4 == 0 then
@@ -883,7 +885,7 @@ function onStepHit()
 			
 			active = false
 			
-			callScript("scripts/neocam", "zoom", {"game", 0.65, 0.25, "cubeinout"})
+			--callScript("scripts/neocam", "zoom", {"game", 0.65, 0.25, "cubeinout"})
 		elseif not player then
 			local hide_attack = getProperty("dad.animation.name"):sub(1, 4) == "sing"
 			setProperty("dad.alpha", hide_attack and 1 or 0.0001)

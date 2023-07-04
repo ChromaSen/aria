@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="PRESS_SPACE.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="press_appear0000" x="0" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0001" x="318" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0002" x="636" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0003" x="954" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0004" x="1272" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0005" x="1590" y="0" width="318" height="273"/>
+	<SubTexture name="press_appear0006" x="0" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0007" x="318" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0008" x="636" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0009" x="954" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0010" x="1272" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0011" x="1590" y="273" width="318" height="273"/>
+	<SubTexture name="press_appear0012" x="0" y="546" width="318" height="273"/>
+	<SubTexture name="press_appear0013" x="318" y="546" width="318" height="273"/>
+	<SubTexture name="press_bop0000" x="636" y="546" width="277" height="153"/>
+	<SubTexture name="press_bop0001" x="913" y="546" width="277" height="153"/>
+	<SubTexture name="press_bop0002" x="1190" y="546" width="277" height="153"/>
+	<SubTexture name="press_bop0003" x="1467" y="546" width="277" height="153"/>
+	<SubTexture name="press_bop0004" x="1744" y="546" width="277" height="153"/>
+	<SubTexture name="press_bop0005" x="636" y="699" width="277" height="153"/>
+	<SubTexture name="press_bop0006" x="913" y="699" width="277" height="153"/>
+	<SubTexture name="press_bop0007" x="1190" y="699" width="277" height="153"/>
+	<SubTexture name="press_bop0008" x="1467" y="699" width="277" height="153"/>
+	<SubTexture name="press_bop0009" x="1744" y="699" width="277" height="153"/>
+	<SubTexture name="press_bop0010" x="0" y="819" width="277" height="153"/>
+	<SubTexture name="press_bop0011" x="277" y="819" width="277" height="153"/>
+	<SubTexture name="press_bop0012" x="554" y="852" width="277" height="153"/>
+	<SubTexture name="press_bop0013" x="831" y="852" width="277" height="153"/>
+	<SubTexture name="press_disappear0000" x="1108" y="852" width="275" height="151"/>
+	<SubTexture name="press_disappear0001" x="1383" y="852" width="275" height="151"/>
+	<SubTexture name="press_disappear0002" x="1658" y="852" width="275" height="151"/>
+	<SubTexture name="press_disappear0003" x="0" y="972" width="275" height="151"/>
+	<SubTexture name="press_disappear0004" x="275" y="972" width="275" height="151"/>
+	<SubTexture name="press_disappear0005" x="1108" y="1003" width="275" height="151"/>
+	<SubTexture name="press_disappear0006" x="1383" y="1003" width="275" height="151"/>
+	<SubTexture name="press_disappear0007" x="1658" y="1003" width="275" height="151"/>
+	<SubTexture name="press_disappear0008" x="550" y="1005" width="275" height="151"/>
+</TextureAtlas>
