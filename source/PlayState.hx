@@ -614,7 +614,7 @@ class PlayState extends MusicBeatState
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 						rain.x = (i-1) * -300; //adds -300 to x for each instance
                     	rain.y = (i-1) * 700; //does the same thing but for y
-						rain.scale.set(1.2, 1.2);
+						rain.scale.set(3, 3);
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
@@ -2297,6 +2297,8 @@ class PlayState extends MusicBeatState
 					vocals=new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 			}
 		}
+
+		if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
 		
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
@@ -4932,6 +4934,14 @@ class PlayState extends MusicBeatState
 		if(curStep == lastStepHit) {
 			return;
 		}
+
+		if(curSong.toLowerCase()=='dope'){switch(curStep){
+			case 192:FlxTween.tween(camHUD,{alpha:1},1.3,{
+				onComplete:function(fdjkdsf:FlxTween){
+					camHUD.alpha=1;
+				}
+			});
+		}}
 
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);

@@ -12,7 +12,7 @@ function onCreate()
 	addLuaSprite("bar_lower", false)
 end
 function onCreatePost()
-	callScript("scripts/neocam", "set_target", {"intro", 1000, -700})
+	callScript("scripts/neocam", "set_target", {"intro", 1000, -400})
 	callScript("scripts/neocam", "snap_target", {"intro"})
 		
 	callScript("scripts/neocam", "snap_zoom", {"game", 0.7})
