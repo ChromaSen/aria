@@ -296,6 +296,8 @@ class PlayState extends MusicBeatState
 		'kuntz',
 		'bo'
 	];*/
+	var tokyobg:BGSprite;
+	public var jpbloom:BGSprite;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -560,22 +562,22 @@ class PlayState extends MusicBeatState
 					add(stageCurtains);
 				}
 			case 'alley': //bunsenbg
-			alleybg = new BGSprite('alley/bg0002', 300, -300);
+			alleybg = new BGSprite('bgs/alley/bg0002', 300, -300);
 			alleybg.scrollFactor.set(0.7, 0.7);
-			trafficlight = new BGSprite('alley/trafficlight', 550, 200);
-			backalley = new BGSprite('alley/alley', 0, -500);
-			spraycans = new BGSprite('alley/objects', 500, 300);
+			trafficlight = new BGSprite('bgs/alley/trafficlight', 550, 200);
+			backalley = new BGSprite('bgs/alley/alley', 0, -500);
+			spraycans = new BGSprite('bgs/alley/objects', 500, 300);
 			blinglight = new FlxSprite(-200, 400);
-			blinglight.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets"); //uses spritesheets
+			blinglight.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets"); //uses spritesheets
 			blinglight.animation.addByPrefix("stageleft", "glow2 copy", 24, true);
 			blinglight.animation.play("stageleft");
 			blinglight2 = new FlxSprite(100, -400);
-			blinglight2.frames=Paths.getSparrowAtlas("alley/backgroundalley_assets");
+			blinglight2.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets");
 			blinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
 			blinglight2.animation.play("stageright");
 
-			blinglight.alpha = 0.05;
-			blinglight2.alpha = 0.05;
+			blinglight.alpha = 0.55;
+			blinglight2.alpha = 0.55;
 
 			add(alleybg);
 			add(trafficlight);
@@ -585,21 +587,21 @@ class PlayState extends MusicBeatState
 			case 'train_bg': //y2kuntz bg
 				defaultCamZoom=0.84;
 
-				train_bg=Sprites.sprite('train/bg',250,-330);
+				train_bg=Sprites.sprite('bgs/train/bg',250,-330);
 				train_bg.scale.set(2,2);
-				building=Sprites.backdrop('train/buildings2',-300,250,20,0);
+				building=Sprites.backdrop('bgs/train/buildings2',-300,250,20,0);
 				//path, x, y, velocity x, velocity y
-				building2=Sprites.backdrop('train/newgrounds',-50,250,40,0);
-				jaredfromsubway = new BGSprite('train/thejardfogle', -400, 430);
+				building2=Sprites.backdrop('bgs/train/newgrounds',-50,250,40,0);
+				jaredfromsubway = new BGSprite('bgs/train/thejardfogle', -400, 430);
 				//add(jaredfromsubway);
-				bloom = new BGSprite('train/bloom', -250, -330);
+				bloom = new BGSprite('bgs/train/bloom', -250, -330);
 				bloom.scale.set(2,2);
-				igotarock = new BGSprite('train/rock', -400, 930); //peanuts reference
+				igotarock = new BGSprite('bgs/train/rock', -400, 930); //peanuts reference
 
 				 /* path, x, y, animation name,should it loop? */
 				 
 				train=new FlxSkewedSprite();
-				train.frames=Paths.getSparrowAtlas("train/train");
+				train.frames=Paths.getSparrowAtlas("bgs/train/train");
 				train.animation.addByPrefix("idle","train move",true);
 				train.animation.play("idle");
 				train.setPosition(270,1000);
@@ -610,7 +612,7 @@ class PlayState extends MusicBeatState
 				for (i in 0...8) //makes 8 instances of rain
 					{
 						rain=new FlxSprite (900, -700);
-						rain.frames=Paths.getSparrowAtlas("train/rainscaled");
+						rain.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 						rain.x = (i-1) * -300; //adds -300 to x for each instance
                     	rain.y = (i-1) * 700; //does the same thing but for y
@@ -618,7 +620,14 @@ class PlayState extends MusicBeatState
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
-				cheekyrock();		
+				cheekyrock();	
+			case 'jp-bg': //kokoro
+			tokyobg = new BGSprite("bgs/jp/bg", -1000, -900);
+			tokyobg.scale.set(1.5, 1.5);
+			jpbloom = new BGSprite("bgs/jp/ball-light", -1100, -1000);
+			jpbloom.scale.set(1.5, 1.5);
+			add(tokyobg);
+
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -653,6 +662,8 @@ class PlayState extends MusicBeatState
 				add(igotarock);
 				add(bloom);
 				add(rain);
+			case 'jp-bg':
+				add(jpbloom);
 		}
 
 		#if LUA_ALLOWED

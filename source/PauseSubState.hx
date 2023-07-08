@@ -220,13 +220,14 @@ class PauseSubState extends MusicBeatSubstate
 		{	
 			//checks if the current selection isnt the ones that in array. if it's not, it will do the tweening
 			//made it because if you wanna restart the song for example, the tweening will just look off lol
+			//thank you chroma -razrs
 			if(!check(daSelected,["Change Difficulty","Restart Song","Leave Charting Mode","End Song","Skip Time","Toggle Botplay","Exit to menu"])){
 				FlxTween.tween(blacked,{x:-480},{ease:FlxEase.quintOut});
 				FlxTween.tween(bg,{alpha:0},0.4,{ease:FlxEase.quartInOut});
 				FlxTween.tween(levelInfo,{alpha:0,y:-480},0.4,{ease:FlxEase.quintOut});
 				FlxTween.tween(levelDifficulty, {alpha: 0, y:levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y - 5}, 0.4, {ease: FlxEase.quartInOut});
-				FlxTween.tween(item,{x:-130},0.5,{ease:FlxEase.quartInOut});
+				FlxTween.tween(item,{x:-150},0.5,{ease:FlxEase.quartInOut});
 			}
 			if (menuItems == difficultyChoices)
 			{

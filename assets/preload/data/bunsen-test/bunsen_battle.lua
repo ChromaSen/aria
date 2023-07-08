@@ -1,5 +1,5 @@
 local events = {
-	[6] = {"binej", 2, "punch"},
+	[6] = {"binej", 1, "punch"},
 	[28] = {"bf", 1, 16},
 	[46] = {"bf", 1, 16}
 }
@@ -31,7 +31,7 @@ local function arrow_angle() return 8.7 - (61 * sin(getSongPosition() * pi / get
 
 local faked_out = false
 local ko = false
-local spit = false
+local burn = false
 local gameover = false
 local restarted = false
 
@@ -48,11 +48,11 @@ function onCreatePost()
 	local bf_x, bf_y = getProperty("boyfriend.x"), getProperty("boyfriend.y")
 	local gf_x, gf_y = getProperty("gf.x"), getProperty("gf.y")
 	
-	makeAnimatedLuaSprite("bf_melted", "characters/bf_melted", bf_x - 20, bf_y - 20)
+	--[[makeAnimatedLuaSprite("bf_melted", "characters/bf_melted", bf_x - 20, bf_y - 20)
 	addAnimationByPrefix("bf_melted", "default", "default", 24, false)
 	setProperty("bf_melted.alpha", 0.00001)
 	addLuaSprite("bf_melted", true)
-	addCharacterToList("bf_kicked")
+	addCharacterToList("bf_kicked")]]
 	
 	makeAnimatedLuaSprite("binej", "battle/philly-fray/bunsenbattle_animations", dad_x - 0, dad_y - 0)
 	scaleObject("binej", 0.9, 0.9)
@@ -60,14 +60,14 @@ function onCreatePost()
 	addAnimationByPrefix("binej", "punch", "bunsenpunch", 24, false)
 	addOffset("binej", "punch_pre", 158, -25)
 	addOffset("binej", "punch", -44, -32)
-	addAnimationByPrefix("binej", "uppercut_pre", "uppercut_pre", 24, false)
-	addOffset("binej", "uppercut_pre", -41, -108)
-	addAnimationByPrefix("binej", "uppercut", "uppercut0", 24, false)
+	addAnimationByPrefix("binej", "burn_pre", "bunsen burn prepare", 24, false)
+	addOffset("binej", "burn_pre", -41, -108)
+	addAnimationByPrefix("binej", "burn", "bunsen burn", 24, false)
 	addOffset("binej", "uppercut", -99, 417)
-	addAnimationByPrefix("binej", "kick_pre", "kick_pre", 24, false)
-	addOffset("binej", "kick_pre", -25, -82)
+	addAnimationByPrefix("binej", "burn_end", "bunsen burn end", 24, false)
+	--[[addOffset("binej", "kick_pre", -25, -82)
 	addAnimationByPrefix("binej", "kick", "kick0", 24, false)
-	addOffset("binej", "kick", -41, 59)
+	addOffset("binej", "kick", -41, 59)]]
 	addAnimationByPrefix("binej", "fakeout_pre", "fakeout_pre", 24, false)
 	addOffset("binej", "fakeout_pre", -2, 1)
 	addAnimationByPrefix("binej", "fakeout", "fakeout0", 24, false)
@@ -112,16 +112,17 @@ function onCreatePost()
 	
 	makeAnimatedLuaSprite("bar", "battle/ui/attackbar", bf_x - 112, bf_y - 112)
 	addAnimationByPrefix("bar", "appear", "ATTACKBAR_APPEAR", 24, false)
-	addOffset("bar", "appear", 19, 137)
 	addAnimationByPrefix("bar", "bop", "ATTACKBAR_BUMP", 24, false)
 	addAnimationByPrefix("bar", "hit", "ATTACKBAR_HIT", 24, false)
 	addAnimationByPrefix("bar", "disappear", "ATTACKBAR_DISAPPEAR", 24, false)
 	addOffset("bar", "bop", 3, 35)
+	addOffset("bar", "disappear", -10, -110)
+	addOffset("bar", "appear", 19, 137)
 	--scaleObject("bar", 0.9, 0.9)
 	addLuaSprite("bar", true)
 	setProperty("bar.alpha", 0.00001)
 	
-	precacheImage("ARIA_BATTLE/ui/attackbar")
+	precacheImage("battle/ui/attackbar")
 	--precacheImage("mouthman/ui/bar_secret")
 	
 	makeAnimatedLuaSprite("bar_hit", "battle/ui/attackbar_hit", bf_x - 127, bf_y - 155)
@@ -206,20 +207,22 @@ function onCreatePost()
 	setProperty("perfect.alpha", 0.00001)
 	addLuaSprite("perfect", true)
 	
-	makeAnimatedLuaSprite("ko", "mouthman/texts/ko", -140, -343)
+	--[[makeAnimatedLuaSprite("ko", "mouthman/texts/ko", -140, -343)
 	addAnimationByPrefix("ko", "default", "default", 24, false)
 	scaleObject("ko", 0.94, 0.94)
 	setProperty("ko.alpha", 0.00001)
 	setObjectCamera("ko", "other")
-	addLuaSprite("ko", true)
+	addLuaSprite("ko", true)]]
 	
 	for i = 1, 5 do
 		local heart = "binej_heart" .. i
-		makeAnimatedLuaSprite(heart, "mouthman/ui/binej_heart", -80, 100 * (i + 1) - (downscroll and 120 or 30))
-		addAnimationByPrefix(heart, "bump", "bump0", 24, false)
+		makeAnimatedLuaSprite(heart, "battle/ui/P2_HEARTS", -80, 100 * (i + 1) - (downscroll and 120 or 30))
+		addAnimationByPrefix(heart, "bump", "heartcounter_enemy_scaled", 24, false)
 		addAnimationByPrefix(heart, "half", "half", 24, false)
-		addAnimationByPrefix(heart, "explode", "explode", 24, false)
-		addOffset(heart, "explode", 50, 75)
+		addAnimationByPrefix(heart, "explode", "heartcounter_enemy_break", 24, false)
+		addAnimationByPrefix(heart, "empty", "empty_enemy_heart", 12, true)
+		addOffset(heart, "empty", -10, 7)
+		addOffset(heart, "explode", 15, 45)
 		setProperty(heart .. ".alpha", 0.00001)
 		setObjectCamera(heart, "hud")
 		addLuaSprite(heart, true)
@@ -227,9 +230,9 @@ function onCreatePost()
 	
 	for i = 1, health.init do
 		local heart = "bf_heart" .. i
-		makeAnimatedLuaSprite(heart, "mouthman/ui/bf_heart", 1165, 100 * (i + 1) - (downscroll and 118 or 28))
-		addAnimationByPrefix(heart, "appear", "appear", 24, false)
-		addOffset(heart, "appear", 13, 16)
+		makeAnimatedLuaSprite(heart, "battle/ui/P1_HEARTS", 1145, 100 * (i + 1) - (downscroll and 118 or 28))
+		--addAnimationByPrefix(heart, "appear", "appear", 24, false)
+		--addOffset(heart, "appear", 13, 16)
 		addAnimationByPrefix(heart, "bump", "bump", 24, false)
 		addAnimationByPrefix(heart, "explode", "explode", 24, false)
 		addOffset(heart, "explode", 33, 33)
@@ -248,8 +251,9 @@ function onCountdownTick(tick)
 		runTimer("binej_heart_appear", 0.1, 4)
 		
 		setProperty("bf_heart1.alpha", 1)
-		playAnim("bf_heart1", "appear", true)
-		runTimer("bf_heart_appear", 0.1, health.init - 1)
+		--playAnim("bf_heart1", "appear", true)
+		doTweenX("bf_heart_move1", "bf_heart", 1165, 0.75, "cubeout")
+		runTimer("bf_heart_appear", 0.1, 4)
 	end
 end
 
@@ -329,8 +333,9 @@ local timer_stuff = {
 		local i = health.init - remaining
 		
 		local heart = "bf_heart" .. i
-		setProperty(heart .. ".alpha", 1)
-		playAnim(heart, "appear", true)
+		doTweenAlpha("bf_heart_appear" .. i, "bf_heart" .. i, 1, 0.4, "cubeinout")
+		doTweenX("bf_heart_move" .. i, "bf_heart" .. i, 1165, 0.75, "cubeout")
+		--playAnim(heart, "appear", true)
 	end,
 	
 	dead = function()
@@ -514,8 +519,9 @@ function onStepHit()
 			local heart = "binej_heart" .. i
 			local anim = heart .. ".animation.curAnim"
 			if not (getProperty(anim .. ".name") == "lose" and getProperty(anim .. ".curFrame") < 9) then
+				playAnim(heart, i <= health.binej and "bump" or "empty", true)
 				if i <= health.binej then
-					playAnim(heart, "bump", true)
+					playAnim(heart, "bump",true)
 				elseif i == ceil(health.binej) then
 					playAnim(heart, "half", true)
 				end
