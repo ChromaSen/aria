@@ -2309,8 +2309,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
-		
+		//if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
+		//do NOT FUCKING DO THIS
+
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
@@ -4898,10 +4899,10 @@ class PlayState extends MusicBeatState
 				var width = igotarock.width + 4400;
 				igotarock.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
 			}
-			for (i in -1...2) {
+			/*for (i in -1...2) {
 				var width = jaredfromsubway.width + 4400;
 				jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
-			}
+			}*/
 		}
 
 	override function destroy() {
@@ -4946,14 +4947,23 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		if(curSong.toLowerCase()=='dope'){switch(curStep){
+		/*if(curSong.toLowerCase()=='dope'){switch(curStep){
 			case 192:FlxTween.tween(camHUD,{alpha:1},1.3,{
 				onComplete:function(fdjkdsf:FlxTween){
 					camHUD.alpha=1;
 				}
 			});
-		}}
-
+		}}*/
+		if(curSong.toLowerCase()=="dope")
+			{
+			   switch (curStep)
+					 {
+						   case 447: //example
+								building.velocity.set(200, 0); //maybe
+								building2.velocity.set(300, 0); //maybe
+					  }
+			}
+			
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);

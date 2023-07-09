@@ -1,7 +1,8 @@
 local events = {
-	[6] = {"binej", 2, "punch"},
-	[28] = {"bf", 1, 16},
-	[46] = {"bf", 1, 16}
+	[30] = {"binej", 2, "punch"},
+	[62] = {"bf", 2, 16},
+	[93] = {"bf", 2, 16},
+	--[46] = {"bf", 1, 16}
 }
 local event_index = 0
 local attacks_left = 5
@@ -117,6 +118,7 @@ function onCreatePost()
 	addAnimationByPrefix("bar", "disappear", "ATTACKBAR_DISAPPEAR", 24, false)
 	addOffset("bar", "disappear", 10, 25)
 	addOffset("bar", "appear", 21, 153)
+	addOffset("bar", "bop", 50, 20)
 	--scaleObject("bar", 0.9, 0.9)
 	addLuaSprite("bar", true)
 	setProperty("bar.alpha", 0.00001)
@@ -126,7 +128,7 @@ function onCreatePost()
 	
 	makeAnimatedLuaSprite("bar_hit", "battle/ui/attackbar_hit", bf_x - 127, bf_y - 155)
 	addAnimationByPrefix("bar_hit", "perfect", "PERFECT", 24, false)
-	addOffset("bar_hit", "perfect", 148, 55)
+	addOffset("bar_hit", "perfect", 158, 55)
 	addAnimationByPrefix("bar_hit", "good", "GOOD", 24, false)
 	addOffset("bar_hit", "good", 0, 11)
 	addAnimationByPrefix("bar_hit", "fail", "SHIT", 24, false)
@@ -155,11 +157,13 @@ function onCreatePost()
 	
 	makeAnimatedLuaSprite("space", "battle/ui/PRESS_SPACE", middlescroll and 508 or 825, downscroll and 105 or 165)
 	addAnimationByPrefix("space", "bop", "press_bop", 24, false)
-	addOffset("space", "bop", 7, 10)
+	addAnimationByPrefix("space", "appear", "press_appear", 24, false)
 	addAnimationByPrefix("space", "pressed", "press_disappear", 24, false)
-	addOffset("space", "bop", 6, 8)
+	addOffset("space", "bop", 7, 7)
+	addOffset("space", "appear", 48, 101)
+	addOffset("space", "pressed", -2, -2)
+	scaleObject("space", 1.5, 1.5)
 	setProperty("space.alpha", 0.00001)
-	scaleObject("space", 1.2, 1.2)
 	setObjectCamera("space", "hud")
 	addLuaSprite("space", true)
 	

@@ -227,7 +227,7 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(levelInfo,{alpha:0,y:-480},0.4,{ease:FlxEase.quintOut});
 				FlxTween.tween(levelDifficulty, {alpha: 0, y:levelDifficulty.y - 5}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y - 5}, 0.4, {ease: FlxEase.quartInOut});
-				FlxTween.tween(item,{x:-150},0.5,{ease:FlxEase.quartInOut});
+				FlxTween.tween(item,{x:-120},0.5,{ease:FlxEase.quartInOut});
 			}
 			if (menuItems == difficultyChoices)
 			{
@@ -387,7 +387,7 @@ class PauseSubState extends MusicBeatSubstate
 			item.setFormat(Paths.font("helvetica.ttf"),64,FlxColor.WHITE,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 			item.antialiasing = ClientPrefs.globalAntialiasing;
 			grpMenuShit.add(item);
-			FlxTween.tween(item,{x:0},0.8,{ease:FlxEase.quartOut});
+			FlxTween.tween(item,{x:30},0.8,{ease:FlxEase.quartOut});
 			if (menuItems[i] == 'Skip Time') {
 				skipTimeText = new FlxText(0, 0, 0, '', 64);
 				skipTimeText.setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

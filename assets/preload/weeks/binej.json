@@ -1,0 +1,40 @@
+{
+	"storyName": "BNEJ",
+	"difficulties": "Hard",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"weekBefore": "",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": true,
+	"songs": [
+		[
+			"Binej Test Song",
+			"binej",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"Bongle",
+			"binej",
+			[
+				146,
+				113,
+				253
+			]
+		]
+	],
+	"weekCharacters": [
+		"",
+		"bf",
+		"gf"
+	],
+	"weekName": "Custom Week"
+}
