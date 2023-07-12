@@ -4961,6 +4961,7 @@ class PlayState extends MusicBeatState
 						   case 447: //example
 								building.velocity.set(200, 0); //maybe
 								building2.velocity.set(300, 0); //maybe
+								FlxG.camera.shake(0.0020,90000000000);
 					  }
 			}
 			
