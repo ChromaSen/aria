@@ -291,6 +291,7 @@ class PlayState extends MusicBeatState
 	public var igotarock:BGSprite;
 	public var jaredfromsubway:BGSprite;
 	public var rain:FlxSprite;
+	public var rainfront:FlxSprite;
 	/*public var opponentPortraits:Array<String> = [
 		'bunsen',
 		'kuntz',
@@ -608,15 +609,20 @@ class PlayState extends MusicBeatState
 				train.updateHitbox();
 				add(train);
 				train.scale.set(1.2, 1.2);	
+				rainfront=new FlxSprite (300, 200);
+				rainfront.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
+				rainfront.animation.addByPrefix("rainmove", "rain smaller", 24, true);
+				rainfront.scale.set(2, 2);
+				rainfront.animation.play("rainmove", true);
 			
 				for (i in 0...8) //makes 8 instances of rain
 					{
-						rain=new FlxSprite (900, -700);
+						rain=new FlxSprite (1200, -700);
 						rain.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
 						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 						rain.x = (i-1) * -300; //adds -300 to x for each instance
                     	rain.y = (i-1) * 700; //does the same thing but for y
-						rain.scale.set(3, 3);
+						rain.scale.set(2, 2);
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
@@ -661,7 +667,7 @@ class PlayState extends MusicBeatState
 			case 'train_bg':
 				add(igotarock);
 				add(bloom);
-				add(rain);
+				add(rainfront);
 			case 'jp-bg':
 				add(jpbloom);
 		}

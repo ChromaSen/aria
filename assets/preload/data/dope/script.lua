@@ -2,12 +2,12 @@ local enabled = true
 local thickness = 100
 function onCreate()
     makeLuaSprite("bar_upper", nil, 0, -thickness)
-	makeGraphic("bar_upper", 1280, thickness, "000000")
+	makeGraphic("bar_upper", 1920, thickness, "000000")
 	setObjectCamera("bar_upper", "hud")
 	addLuaSprite("bar_upper", false)
 			
 	makeLuaSprite("bar_lower", nil, 0, 720)
-	makeGraphic("bar_lower", 1280, thickness, "000000")
+	makeGraphic("bar_lower", 1920, thickness, "000000")
 	setObjectCamera("bar_lower", "hud")
 	addLuaSprite("bar_lower", false)
 end
@@ -27,6 +27,9 @@ function onBeatHit()
 	if curBeat == 48 then
 		setGlobalFromScript("scripts/neocam", "locked_pos", false)
 		callScript("scripts/neocam", "zoom", {"game", 1.025, 2, "easein"})
+	end
+	if curBeat == 112 then
+		callScript("scripts/neocam", "zoom", {"game", 0.9, 1, "quartout"})
 	end
 end
 function onUpdate() end
