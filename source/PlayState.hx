@@ -4910,6 +4910,11 @@ class PlayState extends MusicBeatState
 				jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
 			}*/
 		}
+	public function velocity(obj:FlxSprite,x:Float,duration:Float){
+		FlxTween.tween(obj.velocity,{x:x},duration,{onComplete:function(dsfkj:FlxTween){
+			obj.velocity.x=x;
+		}});
+	}
 
 	override function destroy() {
 		for (lua in luaArray) {
@@ -4965,8 +4970,8 @@ class PlayState extends MusicBeatState
 			   switch (curStep)
 					 {
 						   case 447: //example
-								building.velocity.set(200, 0); //maybe
-								building2.velocity.set(300, 0); //maybe
+								velocity(building,200,5);
+								velocity(building2,300,5);
 								FlxG.camera.shake(0.0020,90000000000);
 					  }
 			}
