@@ -3,7 +3,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				0,
+				2,
 				0
 			],
 			"anim": "idle",
@@ -126,10 +126,10 @@
 				-21,
 				9
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "hurt",
-			"loop": false,
+			"indices": [],
 			"name": "nim hurt"
 		},
 		{
@@ -137,10 +137,10 @@
 				69,
 				36
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "taunt2",
-			"loop": false,
+			"indices": [],
 			"name": "aria guy"
 		},
 		{
@@ -148,10 +148,10 @@
 				69,
 				36
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "taunt1",
-			"loop": false,
+			"indices": [],
 			"name": "nim taunt"
 		},
 		{
@@ -159,10 +159,10 @@
 				48,
 				-19
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "dodgeMISS",
-			"loop": false,
+			"indices": [],
 			"name": "nim near miss"
 		},
 		{
@@ -170,10 +170,10 @@
 				52,
 				-29
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "pre-attack",
-			"loop": false,
+			"indices": [],
 			"name": "nim attack prepare"
 		},
 		{
@@ -181,18 +181,18 @@
 				571,
 				-25
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "mic-attack",
-			"loop": false,
+			"indices": [],
 			"name": "nim mic attack"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/assets_nim_FINAL",
 	"position": [
-		120,
-		200
+		0,
+		0
 	],
 	"healthicon": "nim",
 	"flip_x": true,
@@ -202,7 +202,7 @@
 		214
 	],
 	"camera_position": [
-		100,
+		150,
 		0
 	],
 	"sing_duration": 6.1,

@@ -35,10 +35,10 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/assets_nim_FINAL",
+	"image": "characters/nim_dead",
 	"position": [
 		0,
-		200
+		0
 	],
 	"healthicon": "nim",
 	"flip_x": true,
@@ -48,7 +48,7 @@
 		214
 	],
 	"camera_position": [
-		-200,
+		-250,
 		0
 	],
 	"sing_duration": 6.1,
