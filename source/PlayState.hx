@@ -577,7 +577,7 @@ class PlayState extends MusicBeatState
 			blinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
 			blinglight2.animation.play("stageright");
 
-			blinglight.alpha = 0.55;
+			blinglight.alpha = 0.25;
 			blinglight2.alpha = 0.55;
 
 			add(alleybg);
