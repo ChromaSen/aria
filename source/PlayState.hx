@@ -280,8 +280,8 @@ class PlayState extends MusicBeatState
 	var trafficlight:BGSprite;
 	var backalley:BGSprite;
 	var spraycans:BGSprite;
-	public var blinglight:FlxSprite;
-	public var blinglight2:FlxSprite;
+	public var boinglight:FlxSprite;
+	public var boinglight2:FlxSprite;
 
 	public var building:FlxSprite;
 	public var train_bg:FlxSprite;
@@ -568,17 +568,17 @@ class PlayState extends MusicBeatState
 			trafficlight = new BGSprite('bgs/alley/trafficlight', 550, 200);
 			backalley = new BGSprite('bgs/alley/alley', 0, -500);
 			spraycans = new BGSprite('bgs/alley/objects', 500, 300);
-			blinglight = new FlxSprite(-200, 400);
-			blinglight.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets"); //uses spritesheets
-			blinglight.animation.addByPrefix("stageleft", "glow2 copy", 24, true);
-			blinglight.animation.play("stageleft");
-			blinglight2 = new FlxSprite(100, -400);
-			blinglight2.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets");
-			blinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
-			blinglight2.animation.play("stageright");
+			boinglight = new FlxSprite(-200, 400);
+			boinglight.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets"); //uses spritesheets
+			boinglight.animation.addByPrefix("stageleft", "glow2 copy", 24, true);
+			boinglight.animation.play("stageleft");
+			boinglight2 = new FlxSprite(100, -400);
+			boinglight2.frames=Paths.getSparrowAtlas("bgs/alley/backgroundalley_assets");
+			boinglight2.animation.addByPrefix("stageright", "glow20", 24, true);
+			boinglight2.animation.play("stageright");
 
-			blinglight.alpha = 0.25;
-			blinglight2.alpha = 0.55;
+			boinglight.alpha = 0.25;
+			boinglight2.alpha = 0.55;
 
 			add(alleybg);
 			add(trafficlight);
@@ -613,6 +613,7 @@ class PlayState extends MusicBeatState
 				rainfront.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
 				rainfront.animation.addByPrefix("rainmove", "rain smaller", 24, true);
 				rainfront.scale.set(2, 2);
+				rainfront.alpha = 0.7;
 				rainfront.animation.play("rainmove", true);
 			
 				for (i in 0...8) //makes 8 instances of rain
@@ -623,6 +624,7 @@ class PlayState extends MusicBeatState
 						rain.x = (i-1) * -300; //adds -300 to x for each instance
                     	rain.y = (i-1) * 700; //does the same thing but for y
 						rain.scale.set(2, 2);
+						rain.alpha = 0.7;
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
@@ -662,8 +664,8 @@ class PlayState extends MusicBeatState
 			case 'tank':
 				add(foregroundSprites);
 			case 'alley':
-				add(blinglight);
-				add(blinglight2);
+				add(boinglight);
+				add(boinglight2);
 			case 'train_bg':
 				add(igotarock);
 				add(bloom);
@@ -1098,7 +1100,7 @@ class PlayState extends MusicBeatState
 
 				case 'ugh' | 'guns' | 'stress':
 					tankIntro();
-				case 'philly-fray':
+				case 'sidechain':
 					versusIntro();
 				default:
 					startCountdown();
@@ -1525,7 +1527,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
-	public var vsbg:FlxSprite; //"I literally made ARIA" - REDIALBEAT
+	public var vsbg:FlxSprite;
 	public var nim:FlxSprite;
 	public var oppPort:FlxSprite;
 	public var introtimer:FlxTimer;
@@ -1538,6 +1540,7 @@ class PlayState extends MusicBeatState
 	public var VHS:FlxRuntimeShader;
 	public var VCR:VCREFFECT;
 	public var vsicon:FlxSprite;
+	public var walterblack:FlxSprite;
 	function versusIntro()
 		{
 			
@@ -1580,7 +1583,8 @@ class PlayState extends MusicBeatState
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
 			add(nim);
-
+			walterblack = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			walterblack.screenCenter(X);
 			vsicon=new FlxSprite().loadGraphic(Paths.image("VS/VS"));
 			vsicon.setPosition(-297,-140);
 			vsicon.updateHitbox();
@@ -1590,7 +1594,7 @@ class PlayState extends MusicBeatState
 
 			switch(curSong.toLowerCase())
 			{
-				case 'philly fray':
+				case 'sidechain':
 					oppPort.animation.play('bunsen');
 					add(oppPort);
 				case 'dope':
@@ -1616,6 +1620,8 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(nim,{x:1300},5);
 							
 						new FlxTimer().start(2.3,function(df:FlxTimer){
+
+							FlxTween.tween(walterblack,{alpha:0},1.8);
 							for(intro in all){
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);

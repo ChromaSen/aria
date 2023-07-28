@@ -49,6 +49,7 @@ class PauseSubState extends MusicBeatSubstate
 	public var blueballedTxt:FlxText;
 	public var item:FlxText;
 	public var accepted:Bool;
+	var pausePortrait:FlxSprite;
 	public function new(x:Float, y:Float)
 	{
 		super();
@@ -76,7 +77,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		difficultyChoices.push('BACK');
 
-		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
+		pauseMusic = new FlxSound().loadEmbedded(Paths.music('pause'), true, true);
 		pauseMusic.volume = 0;
 
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -96,6 +97,30 @@ class PauseSubState extends MusicBeatSubstate
 		blacked.screenCenter(Y);
 		add(blacked);
 
+		var portraitDistance:Float = 1000;
+		pausePortrait = new FlxSprite(1280, 0);
+		pausePortrait.frames = Paths.getSparrowAtlas('VS/portraits/ports');
+		pausePortrait.antialiasing = ClientPrefs.globalAntialiasing;
+		pausePortrait.scrollFactor.set();
+		pausePortrait.animation.addByPrefix('bunsen', "bunsen", 24);
+		pausePortrait.animation.addByPrefix('y2kuntz', "y2kuntz", 24);
+		pausePortrait.animation.addByPrefix('bo', "bo", 24);
+		if (PlayState.SONG.stage == 'alley')
+			{
+				pausePortrait.animation.play('bunsen');
+				pausePortrait.y = 100;
+			}
+		if (PlayState.SONG.stage == 'train_bg')
+			{
+				pausePortrait.animation.play('y2kuntz');
+				pausePortrait.y = 100;
+			}
+		if (PlayState.SONG.stage == 'jp-bg')
+			{
+				pausePortrait.animation.play('bo');
+				pausePortrait.y = 100;		
+			}
+			add(pausePortrait);
 		levelInfo = new FlxText(20, 15 + 20, 0, "You have been listening to: \n", 32);
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
@@ -148,10 +173,19 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.x = 480;
 		blueballedTxt.x = 480;
 		FlxTween.tween(blacked, {x:0}, {ease: FlxEase.quintOut});
-		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(pausePortrait, {x:700}, {ease: FlxEase.quartOut});
+		if (PlayState.SONG.stage == 'jp-bg')
+			{
+				FlxTween.tween(pausePortrait, {x:900}, {ease: FlxEase.quartOut});
+			}
+		if (PlayState.SONG.stage == 'train_bg')
+				{
+					FlxTween.tween(pausePortrait, {x:700}, {ease: FlxEase.quartOut});
+				}
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quintOut, startDelay: 0.3});
 		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+
 
 		grpMenuShit = new FlxTypedGroup<FlxText>();
 		add(grpMenuShit);

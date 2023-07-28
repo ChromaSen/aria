@@ -271,7 +271,7 @@ class MainMenuState extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'story_mode':
-										PlayState.storyPlaylist=['philly-fray', 'bling'];
+										PlayState.storyPlaylist=['sidechain', 'boing', 'philly-fray'];
 										PlayState.isStoryMode=true;
 										PlayState.storyWeek=1;
 										PlayState.campaignScore=0;
