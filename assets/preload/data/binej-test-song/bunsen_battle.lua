@@ -101,11 +101,11 @@ function onCreatePost()
 	setProperty("hit.alpha", 0.00001)
 	addLuaSprite("hit", true)
 	
-	makeAnimatedLuaSprite("spit", "mouthman/spit", bf_x - 220, bf_y - 110)
+	--[[makeAnimatedLuaSprite("spit", "mouthman/spit", bf_x - 220, bf_y - 110)
 	addAnimationByPrefix("spit", "hit", "hit", 24, false)
 	addAnimationByPrefix("spit", "dodged", "dodged", 24, false)
 	setProperty("spit.alpha", 0.00001)
-	addLuaSprite("spit", true)
+	addLuaSprite("spit", true)]]
 	
 	makeLuaSprite("combo", "mouthman/texts/combo", gf_x + 75, gf_y - 75)
 	setProperty("combo.alpha", 0.00001)

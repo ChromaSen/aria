@@ -90,7 +90,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.camera.setFilters([new ShaderFilter(VHS)]);
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
+		bg.alpha = 0.5;
 		bg.scrollFactor.set();
 		add(bg);
 		blacked = new FlxSprite(-480).makeGraphic(480, 720, FlxColor.BLACK);
@@ -103,8 +103,10 @@ class PauseSubState extends MusicBeatSubstate
 		pausePortrait.antialiasing = ClientPrefs.globalAntialiasing;
 		pausePortrait.scrollFactor.set();
 		pausePortrait.animation.addByPrefix('bunsen', "bunsen", 24);
-		pausePortrait.animation.addByPrefix('y2kuntz', "y2kuntz", 24);
+		pausePortrait.animation.addByPrefix('y2kuntz', "kuntz", 24);
 		pausePortrait.animation.addByPrefix('bo', "bo", 24);
+
+		/*This needs optimization. I can't be fucked to make this look cleaner but it works so whatever.*/
 		if (PlayState.SONG.stage == 'alley')
 			{
 				pausePortrait.animation.play('bunsen');

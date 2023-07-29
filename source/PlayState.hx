@@ -1577,7 +1577,7 @@ class PlayState extends MusicBeatState
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 
 			oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
-			oppPort.animation.addByPrefix('y2kuntz', "y2kuntz", 24);
+			oppPort.animation.addByPrefix('y2kuntz', "kuntz", 24);
 			oppPort.animation.addByPrefix('bo', "bo", 24);
 
 			nim.animation.addByPrefix('nim', "nim", 24);
