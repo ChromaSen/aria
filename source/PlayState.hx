@@ -2939,7 +2939,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		var off=2/1000;
-		if(inCutscene&&curSong.toLowerCase()=='philly fray')
+		if(inCutscene&&curSong.toLowerCase()=='sidechain')
 			{
 				VHS.setFloat("iTime",VHS.getFloat("iTime")+elapsed);
 				off=FlxG.random.int(1,3)/900;
