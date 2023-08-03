@@ -1,5 +1,6 @@
 package;
 
+//import js.html.AbortController;
 import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
@@ -198,6 +199,9 @@ class PlayState extends MusicBeatState
 	private var timeBarBG:AttachedSprite;
 	public var timeBar:FlxBar;
 
+	public var letBoxTop:FlxSprite;
+	public var letBoxBot:FlxSprite;
+
 	public var ratingsData:Array<Rating> = [];
 	public var sicks:Int = 0;
 	public var goods:Int = 0;
@@ -361,6 +365,8 @@ class PlayState extends MusicBeatState
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
 
+	//lua port shit for letterboxing
+	var thickness:Int = 100;
 
 	public static var filter:ShaderFilter;
 	public static var filter2:ShaderFilter;
@@ -841,7 +847,11 @@ class PlayState extends MusicBeatState
 			timeTxt.text = SONG.song;
 		}
 		updateTime = showTime;
-
+	//This is probably shitty, but whatever.
+	letBoxTop = new FlxSprite(0, -thickness).makeGraphic(1280, thickness, FlxColor.BLACK);
+	add(letBoxTop);
+	letBoxBot = new FlxSprite(0, 720).makeGraphic(1280, thickness, FlxColor.BLACK);
+	add(letBoxBot);
 		timeBarBG = new AttachedSprite('timeBar');
 		timeBarBG.x = timeTxt.x;
 		timeBarBG.y = timeTxt.y + (timeTxt.height / 4);
@@ -863,7 +873,8 @@ class PlayState extends MusicBeatState
 		add(timeBar);
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
-
+		
+		
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
@@ -963,7 +974,9 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) {
 			botplayTxt.y = timeBarBG.y - 78;
 		}
-
+		
+		letBoxTop.cameras = [camHUD];
+		letBoxBot.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -977,7 +990,6 @@ class PlayState extends MusicBeatState
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
-
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1540,7 +1552,6 @@ class PlayState extends MusicBeatState
 	public var VHS:FlxRuntimeShader;
 	public var VCR:VCREFFECT;
 	public var vsicon:FlxSprite;
-	public var walterblack:FlxSprite;
 	function versusIntro()
 		{
 			
@@ -1583,8 +1594,9 @@ class PlayState extends MusicBeatState
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
 			add(nim);
-			walterblack = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+			/*walterblack = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 			walterblack.screenCenter(X);
+			add(walterblack);*/
 			vsicon=new FlxSprite().loadGraphic(Paths.image("VS/VS"));
 			vsicon.setPosition(-297,-140);
 			vsicon.updateHitbox();
@@ -1618,10 +1630,8 @@ class PlayState extends MusicBeatState
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
 							FlxTween.tween(nim,{x:1300},5);
-							
+							//FlxG.camera.fade(FlxColor.BLACK, 1.6, false);
 						new FlxTimer().start(2.3,function(df:FlxTimer){
-
-							FlxTween.tween(walterblack,{alpha:0},1.8);
 							for(intro in all){
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
@@ -2258,8 +2268,12 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
+		FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
+		FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+
+
 
 		switch(curStage)
 		{
