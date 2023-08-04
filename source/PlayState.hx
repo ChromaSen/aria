@@ -289,7 +289,10 @@ class PlayState extends MusicBeatState
 
 	public var building:FlxSprite;
 	public var train_bg:FlxSprite;
+	public var train_bg_drop:FlxSprite;
 	public var building2:FlxBackdrop;
+	public var dropbuilding:FlxBackdrop;
+	public var dropbuilding2:BGSprite;
 	public var train:FlxSkewedSprite;
 	public var bloom:BGSprite;
 	public var igotarock:BGSprite;
@@ -596,9 +599,18 @@ class PlayState extends MusicBeatState
 
 				train_bg=Sprites.sprite('bgs/train/bg',250,-330);
 				train_bg.scale.set(2,2);
+
+				train_bg_drop=Sprites.sprite('bgs/train/drop/bg-drop',250,-330);
+				train_bg_drop.scale.set(2,2);
+
 				building=Sprites.backdrop('bgs/train/buildings2',-300,250,20,0);
+				dropbuilding=Sprites.backdrop('bgs/train/drop/buildingbg1',-300,350,50,0);
+
 				//path, x, y, velocity x, velocity y
 				building2=Sprites.backdrop('bgs/train/newgrounds',-50,250,40,0);
+
+				dropbuilding2 = new BGSprite('bgs/train/drop/building2', -400, 330);
+
 				jaredfromsubway = new BGSprite('bgs/train/thejardfogle', -400, 430);
 				//add(jaredfromsubway);
 				bloom = new BGSprite('bgs/train/bloom', -250, -330);
@@ -613,6 +625,7 @@ class PlayState extends MusicBeatState
 				train.animation.play("idle");
 				train.setPosition(270,1000);
 				train.updateHitbox();
+				add(dropbuilding2);
 				add(train);
 				train.scale.set(1.2, 1.2);	
 				rainfront=new FlxSprite (300, 200);
@@ -621,7 +634,11 @@ class PlayState extends MusicBeatState
 				rainfront.scale.set(2, 2);
 				rainfront.alpha = 0.7;
 				rainfront.animation.play("rainmove", true);
-			
+
+				
+				train_bg_drop.visible = false;
+				dropbuilding.visible = false;
+				dropbuilding2.visible = false;
 				for (i in 0...8) //makes 8 instances of rain
 					{
 						rain=new FlxSprite (1200, -700);
@@ -634,6 +651,7 @@ class PlayState extends MusicBeatState
 						rain.animation.play("rainmove", true);	
 						add(rain);
 					}
+				mindmotherfucker();
 				cheekyrock();	
 			case 'jp-bg': //kokoro
 			tokyobg = new BGSprite("bgs/jp/bg", -1000, -900);
@@ -2285,6 +2303,7 @@ class PlayState extends MusicBeatState
 				});
 			case 'train_bg':
 				cheekyrock();
+				mindmotherfucker();
 		}
 
 		#if desktop
@@ -2787,6 +2806,7 @@ class PlayState extends MusicBeatState
 				moveTank(elapsed);
 			case 'train_bg':
 				cheekyrock(elapsed);
+				mindmotherfucker(elapsed);
 			case 'schoolEvil':
 				if(!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished) {
 					bgGhouls.visible = false;
@@ -4783,6 +4803,24 @@ class PlayState extends MusicBeatState
 			trainSound.play(true);
 	}
 
+	function dopeBeatSwitch()
+		{
+			train_bg_drop.visible = true;
+			dropbuilding.visible = true;
+			dropbuilding2.visible = true;
+			train_bg.visible = false;
+			building.visible = false;
+			building2.visible = false;
+		}
+	function dopeBeatRevert()
+		{
+			train_bg_drop.visible = false;
+			dropbuilding.visible = false;
+			dropbuilding2.visible = false;
+			train_bg.visible = true;
+			building.visible = true;
+			building2.visible = true;
+		}
 	var startedMoving:Bool = false;
 
 	function updateTrainPos():Void
@@ -4930,6 +4968,17 @@ class PlayState extends MusicBeatState
 				jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
 			}*/
 		}
+		function mindmotherfucker(?elapsed:Float = 0):Void
+			{
+				for (i in -1...2) {
+					var width = dropbuilding2.width + 4400;
+					dropbuilding2.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
+				}
+				/*for (i in -1...2) {
+					var width = jaredfromsubway.width + 4400;
+					jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
+				}*/
+			}
 	public function velocity(obj:FlxSprite,x:Float,duration:Float){
 		FlxTween.tween(obj.velocity,{x:x},duration,{onComplete:function(dsfkj:FlxTween){
 			obj.velocity.x=x;
@@ -4993,6 +5042,9 @@ class PlayState extends MusicBeatState
 								velocity(building,200,5);
 								velocity(building2,300,5);
 								FlxG.camera.shake(0.0020,90000000000);
+							case 960:
+									dopeBeatSwitch();
+									velocity(dropbuilding,500,2);
 					  }
 			}
 			
