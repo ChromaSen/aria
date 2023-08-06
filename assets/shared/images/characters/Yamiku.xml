@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Yamiku.png">
+<SubTexture name="Yamiku idle0000" x="1305" y="565" width="829" height="564" frameX="-95" frameY="-214" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0001" x="2139" y="561" width="826" height="558" frameX="-87" frameY="-221" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0002" x="898" y="1737" width="837" height="540" frameX="-71" frameY="-238" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0003" x="0" y="2287" width="846" height="535" frameX="-65" frameY="-243" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0004" x="2139" y="1119" width="836" height="553" frameX="-78" frameY="-225" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0005" x="834" y="1173" width="834" height="561" frameX="-83" frameY="-217" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0006" x="0" y="1173" width="834" height="564" frameX="-84" frameY="-214" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0007" x="1305" y="0" width="834" height="565" frameX="-84" frameY="-213" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku idle0008" x="1305" y="0" width="834" height="565" frameX="-84" frameY="-213" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singLEFT0000" x="0" y="0" width="644" height="591" frameX="-272" frameY="-166" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singLEFT0001" x="644" y="0" width="661" height="587" frameX="-272" frameY="-171" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singDOWN0000" x="0" y="591" width="847" height="582" frameX="-98" frameY="-197" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singDOWN0001" x="0" y="1737" width="898" height="550" frameX="-65" frameY="-229" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku sigUP0000" x="2139" y="0" width="856" height="561" frameX="-19" frameY="-214" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku sigUP0001" x="1735" y="1737" width="862" height="537" frameX="-28" frameY="-238" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singRIGHT0000" x="1651" y="2287" width="794" height="440" frameX="-48" frameY="-340" frameWidth="1078" frameHeight="800" />
+<SubTexture name="Yamiku singRIGHT0001" x="846" y="2287" width="805" height="444" frameX="-27" frameY="-336" frameWidth="1078" frameHeight="800" />
+</TextureAtlas>
