@@ -2286,6 +2286,7 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
+		var songName:String = Paths.formatToSongPath(SONG.song);
 		FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
 		FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});

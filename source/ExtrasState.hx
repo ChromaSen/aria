@@ -13,6 +13,20 @@ import flixel.util.FlxTimer;
 
 class ExtrasState extends MusicBeatState
 {
+	public var gallery:Array<String>=[
+	"Bunsen's original concept art, drawn by tinb.",
+	"Burn attack concept.",
+	"Original concept of 4R1A.",
+	"Nim (old version)",
+	"Sketch of Nim (forma de tinb).",
+	"Original sketch of Orchid.",
+	"Yamiku & Bo BG concept, done by VEP.",
+	"Early spritework for her.",
+	"Pause concepts.",
+	"Story Mode concepts.",
+
+	];
+
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
@@ -23,7 +37,7 @@ class ExtrasState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu'));
 		add(bg);
 		warnText = new FlxText(0, 0, FlxG.width,
-			"nuh uh",
+			"You're a stupid motherfucker, \naren't you?",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -32,17 +46,10 @@ class ExtrasState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if(!leftState) {
 			if (controls.ACCEPT) {
-				leftState = true;
 				CoolUtil.browserLoad("https://www.youtube.com/watch?v=lNN8PeYEdMQ");
 			}
 			else if(controls.BACK) {
-				leftState = true;
-			}
-
-			if(leftState)
-			{
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
@@ -50,7 +57,6 @@ class ExtrasState extends MusicBeatState
 					}
 				});
 			}
-		}
 		super.update(elapsed);
 	}
 }

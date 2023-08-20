@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ARROWS.png">
+	<!-- Created with Adobe Animate version 23.0.1.70 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="LEFT_ARROW0000" x="0" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROW0001" x="0" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROW0002" x="79" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROW0003" x="79" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROW0004" x="158" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROW0005" x="158" y="0" width="79" height="146"/>
+	<SubTexture name="LEFT_ARROWSEL0000" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0001" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0002" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0003" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0004" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0005" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0006" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="LEFT_ARROWSEL0007" x="237" y="0" width="80" height="144"/>
+	<SubTexture name="RIGHT_ARROW0000" x="317" y="0" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROW0001" x="317" y="0" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROW0002" x="396" y="0" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROW0003" x="396" y="0" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROW0004" x="0" y="146" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROW0005" x="0" y="146" width="79" height="146"/>
+	<SubTexture name="RIGHT_ARROWSEL0000" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0001" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0002" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0003" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0004" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0005" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0006" x="79" y="146" width="83" height="145"/>
+	<SubTexture name="RIGHT_ARROWSEL0007" x="79" y="146" width="83" height="145"/>
+</TextureAtlas>
