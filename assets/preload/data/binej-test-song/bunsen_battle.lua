@@ -2,6 +2,7 @@ local events = {
 	[30] = {"binej", 2, "punch"},
 	[62] = {"bf", 2, 16},
 	[93] = {"bf", 2, 16},
+	[126] = {"bf", 2, 16},
 	--[46] = {"bf", 1, 16}
 }
 local event_index = 0
@@ -224,7 +225,7 @@ function onCreatePost()
 		addAnimationByPrefix(heart, "half", "half", 24, false)
 		addAnimationByPrefix(heart, "explode", "heartcounter_enemy_break", 24, false)
 		addAnimationByPrefix(heart, "empty", "empty_enemy_heart", 12, true)
-		addOffset(heart, "empty", -10, 7)
+		addOffset(heart, "empty", -10, 10)
 		addOffset(heart, "explode", 15, 55)
 		setProperty(heart .. ".alpha", 0.00001)
 		setObjectCamera(heart, "hud")
