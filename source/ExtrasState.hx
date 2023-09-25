@@ -37,7 +37,8 @@ class ExtrasState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu'));
 		add(bg);
 		warnText = new FlxText(0, 0, FlxG.width,
-			"You're a stupid motherfucker, \naren't you?",
+			"You're a stupid motherfucker, \naren't you?
+			There were meant to be gallery art and some other shit, but this section is unfinished. \nPress Enter to go to Credits menu, or press Escape to go back.",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -47,7 +48,12 @@ class ExtrasState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 			if (controls.ACCEPT) {
-				CoolUtil.browserLoad("https://www.youtube.com/watch?v=lNN8PeYEdMQ");
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxTween.tween(warnText, {alpha: 0}, 1, {
+					onComplete: function (twn:FlxTween) {
+						MusicBeatState.switchState(new CreditsState());
+					}
+				});
 			}
 			else if(controls.BACK) {
 				FlxG.sound.play(Paths.sound('cancelMenu'));

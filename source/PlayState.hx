@@ -2355,8 +2355,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		//if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
+		if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
 		//do NOT FUCKING DO THIS
+		// fuck you i will!!!!!!!!!!
 
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
@@ -5028,13 +5029,13 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		/*if(curSong.toLowerCase()=='dope'){switch(curStep){
+		if(curSong.toLowerCase()=='dope'){switch(curStep){
 			case 192:FlxTween.tween(camHUD,{alpha:1},1.3,{
 				onComplete:function(fdjkdsf:FlxTween){
 					camHUD.alpha=1;
 				}
 			});
-		}}*/
+		}}
 		if(curSong.toLowerCase()=="dope")
 			{
 			   switch (curStep)
