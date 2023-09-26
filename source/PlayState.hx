@@ -286,19 +286,6 @@ class PlayState extends MusicBeatState
 	var spraycans:BGSprite;
 	public var boinglight:FlxSprite;
 	public var boinglight2:FlxSprite;
-
-	public var building:FlxSprite;
-	public var train_bg:FlxSprite;
-	public var train_bg_drop:FlxSprite;
-	public var building2:FlxBackdrop;
-	public var dropbuilding:FlxBackdrop;
-	public var dropbuilding2:BGSprite;
-	public var train:FlxSkewedSprite;
-	public var bloom:BGSprite;
-	public var igotarock:BGSprite;
-	public var jaredfromsubway:BGSprite;
-	public var rain:FlxSprite;
-	public var rainfront:FlxSprite;
 	/*public var opponentPortraits:Array<String> = [
 		'bunsen',
 		'kuntz',
@@ -593,66 +580,6 @@ class PlayState extends MusicBeatState
 			add(trafficlight);
 			add(backalley);
 			add(spraycans);
-				
-			case 'train_bg': //y2kuntz bg
-				defaultCamZoom=0.84;
-
-				train_bg=Sprites.sprite('bgs/train/bg',250,-330);
-				train_bg.scale.set(2,2);
-
-				train_bg_drop=Sprites.sprite('bgs/train/drop/bg-drop',250,-330);
-				train_bg_drop.scale.set(2,2);
-
-				building=Sprites.backdrop('bgs/train/buildings2',-300,300,20,0);
-				dropbuilding=Sprites.backdrop('bgs/train/drop/buildingbg1',-300,350,50,0);
-
-				//path, x, y, velocity x, velocity y
-				building2=Sprites.backdrop('bgs/train/newgrounds',-50,200,40,0);
-
-				dropbuilding2 = new BGSprite('bgs/train/drop/building2', -400, 330);
-
-				jaredfromsubway = new BGSprite('bgs/train/thejardfogle', -400, 430);
-				//add(jaredfromsubway);
-				bloom = new BGSprite('bgs/train/bloom', -250, -330);
-				bloom.scale.set(2,2);
-				igotarock = new BGSprite('bgs/train/rock', -400, 1130); //peanuts reference
-
-				 /* path, x, y, animation name,should it loop? */
-				 
-				train=new FlxSkewedSprite();
-				train.frames=Paths.getSparrowAtlas("bgs/train/train");
-				train.animation.addByPrefix("idle","train move",true);
-				train.animation.play("idle");
-				train.setPosition(270,1000);
-				train.updateHitbox();
-				add(dropbuilding2);
-				add(train);
-				train.scale.set(1.2, 1.2);	
-				rainfront=new FlxSprite (300, 200);
-				rainfront.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
-				rainfront.animation.addByPrefix("rainmove", "rain smaller", 24, true);
-				rainfront.scale.set(2, 2);
-				rainfront.alpha = 0.7;
-				rainfront.animation.play("rainmove", true);
-
-				
-				train_bg_drop.visible = false;
-				dropbuilding.visible = false;
-				dropbuilding2.visible = false;
-				for (i in 0...8) //makes 8 instances of rain
-					{
-						rain=new FlxSprite (1200, -700);
-						rain.frames=Paths.getSparrowAtlas("bgs/train/rainscaled");
-						rain.animation.addByPrefix("rainmove", "rain smaller", 24, true);
-						rain.x = (i-1) * -300; //adds -300 to x for each instance
-                    	rain.y = (i-1) * 700; //does the same thing but for y
-						rain.scale.set(2, 2);
-						rain.alpha = 0.7;
-						rain.animation.play("rainmove", true);	
-						add(rain);
-					}
-				mindmotherfucker();
-				cheekyrock();	
 			case 'jp-bg': //kokoro
 			tokyobg = new BGSprite("bgs/jp/bg", -1000, -900);
 			tokyobg.scale.set(1.5, 1.5);
@@ -690,10 +617,6 @@ class PlayState extends MusicBeatState
 			case 'alley':
 				add(boinglight);
 				add(boinglight2);
-			case 'train_bg':
-				add(igotarock);
-				add(bloom);
-				add(rainfront);
 			case 'jp-bg':
 				add(jpbloom);
 		}
@@ -1627,9 +1550,6 @@ class PlayState extends MusicBeatState
 				case 'sidechain':
 					oppPort.animation.play('bunsen');
 					add(oppPort);
-				case 'dope':
-					oppPort.animation.play('y2kuntz');
-					add(oppPort);
 				case 'kokoro':
 					oppPort.animation.play('bo');
 					add(oppPort);
@@ -2303,9 +2223,6 @@ class PlayState extends MusicBeatState
 			case 'alley':
 				FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
 				FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
-			case 'train_bg':
-				cheekyrock();
-				mindmotherfucker();
 		}
 
 		#if desktop
@@ -2355,11 +2272,6 @@ class PlayState extends MusicBeatState
 					vocals=new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 			}
 		}*/
-
-		if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
-		//do NOT FUCKING DO THIS
-		// fuck you i will!!!!!!!!!!
-		//coward
 
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
@@ -2808,9 +2720,6 @@ class PlayState extends MusicBeatState
 		{
 			case 'tank':
 				moveTank(elapsed);
-			case 'train_bg':
-				cheekyrock(elapsed);
-				mindmotherfucker(elapsed);
 			case 'schoolEvil':
 				if(!ClientPrefs.lowQuality && bgGhouls.animation.curAnim.finished) {
 					bgGhouls.visible = false;
@@ -3270,9 +3179,6 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
-		if(curSong.toLowerCase()=='dope'&&!inCutscene){
-			train.skew.x=(-((FlxG.camera.scroll.x+(FlxG.width/2))-train.getMidpoint().x)/0.010)/Math.PI/train.width;
-		}
 	}
 
 	function openPauseMenu()
@@ -4806,25 +4712,6 @@ class PlayState extends MusicBeatState
 		if (!trainSound.playing)
 			trainSound.play(true);
 	}
-
-	function dopeBeatSwitch()
-		{
-			train_bg_drop.visible = true;
-			dropbuilding.visible = true;
-			dropbuilding2.visible = true;
-			train_bg.visible = false;
-			building.visible = false;
-			building2.visible = false;
-		}
-	function dopeBeatRevert()
-		{
-			train_bg_drop.visible = false;
-			dropbuilding.visible = false;
-			dropbuilding2.visible = false;
-			train_bg.visible = true;
-			building.visible = true;
-			building2.visible = true;
-		}
 	var startedMoving:Bool = false;
 
 	function updateTrainPos():Void
@@ -5029,43 +4916,7 @@ class PlayState extends MusicBeatState
 
 		if(curStep == lastStepHit) {
 			return;
-		}
-		if(curSong.toLowerCase()=="dope")
-			{
-			   switch (curStep)
-					 {
-					case 176:
-						FlxTween.tween(camHUD,{alpha:1},1.3,{
-							onComplete:function(fdjkdsf:FlxTween){
-								camHUD.alpha=1;
-							}
-						});
-					case 192:
-						FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
-						FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
-					case 447: //example
-						velocity(building,300,5);
-						velocity(building2,300,5);
-						FlxG.camera.shake(0.0020,90000000000);
-					case 956:
-						camGame.alpha = 0;
-					case 960:
-						camGame.alpha = 1;
-							dopeBeatSwitch();
-							velocity(dropbuilding,500,2);
-					case 1211:
-						camGame.alpha = 0;
-					case 1215:
-						camGame.alpha = 1;
-						dopeBeatRevert();
-						velocity(building,350,4);
-						velocity(building2,350,4);
-					case 1470:
-						velocity(building,150,4);
-						velocity(building2,150,4);
-					  }
-			}
-			
+		}		
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
