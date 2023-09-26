@@ -5040,13 +5040,26 @@ class PlayState extends MusicBeatState
 			{
 			   switch (curStep)
 					 {
-						   case 447: //example
-								velocity(building,200,5);
-								velocity(building2,300,5);
-								FlxG.camera.shake(0.0020,90000000000);
-							case 960:
-									dopeBeatSwitch();
-									velocity(dropbuilding,500,2);
+					case 447: //example
+						velocity(building,300,5);
+						velocity(building2,300,5);
+						FlxG.camera.shake(0.0020,90000000000);
+					case 956:
+						camGame.alpha = 0;
+					case 960:
+						camGame.alpha = 1;
+							dopeBeatSwitch();
+							velocity(dropbuilding,500,2);
+					case 1211:
+						camGame.alpha = 0;
+					case 1215:
+						camGame.alpha = 1;
+						dopeBeatRevert();
+						velocity(building,350,4);
+						velocity(building2,350,4);
+					case 1470:
+						velocity(building,150,4);
+						velocity(building2,150,4);
 					  }
 			}
 			
