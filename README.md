@@ -1,6 +1,6 @@
-#4R1A
+# 4R1A
 > [!IMPORTANT]
-> By careful reconsideration from the team, Y2Kuntz and assets pertaining to the chracter are removed from the repo. 
+> By request from REDIAL, Y2Kuntz and assets pertaining to the chracter are removed from the repo. 
 
 This is the official repository for 4R1A (pronounced aria), containing the original project files of the visuals and music as well as the code that helped make this (now scrapped) project possible.
 
