@@ -587,7 +587,7 @@ class PlayState extends MusicBeatState
 			boinglight2.animation.play("stageright");
 
 			boinglight.alpha = 0.25;
-			boinglight2.alpha = 0.55;
+			boinglight2.alpha = 0.45;
 
 			add(alleybg);
 			add(trafficlight);
@@ -983,8 +983,8 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "GOONER TIME", 32); //im gooning so hard urrrrghhhh
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32); //lol
+		botplayTxt.setFormat(Paths.font("newrodin.otf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;

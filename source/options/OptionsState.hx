@@ -70,11 +70,10 @@ class OptionsState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scale.set(0.5, 0.5);
 		add(bg);
-		/*if (FlxG.random.bool(2))
+		if (FlxG.random.bool(0.5))
 			{
 				add(stupidasscat);
-			}*/
-		add(stupidasscat);
+			}
 		bg.screenCenter();
 		
 		FlxG.sound.playMusic(Paths.music('CogsSETTINGS'));
