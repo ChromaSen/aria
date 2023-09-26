@@ -603,11 +603,11 @@ class PlayState extends MusicBeatState
 				train_bg_drop=Sprites.sprite('bgs/train/drop/bg-drop',250,-330);
 				train_bg_drop.scale.set(2,2);
 
-				building=Sprites.backdrop('bgs/train/buildings2',-300,250,20,0);
+				building=Sprites.backdrop('bgs/train/buildings2',-300,300,20,0);
 				dropbuilding=Sprites.backdrop('bgs/train/drop/buildingbg1',-300,350,50,0);
 
 				//path, x, y, velocity x, velocity y
-				building2=Sprites.backdrop('bgs/train/newgrounds',-50,250,40,0);
+				building2=Sprites.backdrop('bgs/train/newgrounds',-50,200,40,0);
 
 				dropbuilding2 = new BGSprite('bgs/train/drop/building2', -400, 330);
 
@@ -615,7 +615,7 @@ class PlayState extends MusicBeatState
 				//add(jaredfromsubway);
 				bloom = new BGSprite('bgs/train/bloom', -250, -330);
 				bloom.scale.set(2,2);
-				igotarock = new BGSprite('bgs/train/rock', -400, 930); //peanuts reference
+				igotarock = new BGSprite('bgs/train/rock', -400, 1130); //peanuts reference
 
 				 /* path, x, y, animation name,should it loop? */
 				 
@@ -2287,8 +2287,6 @@ class PlayState extends MusicBeatState
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
-		FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
@@ -2302,6 +2300,9 @@ class PlayState extends MusicBeatState
 				{
 					spr.dance();
 				});
+			case 'alley':
+				FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
+				FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
 			case 'train_bg':
 				cheekyrock();
 				mindmotherfucker();
@@ -2343,7 +2344,7 @@ class PlayState extends MusicBeatState
 
 		vocals.pitch = playbackRate;
 
-		var songName:String = Paths.formatToSongPath(SONG.song);
+		/*var songName:String = Paths.formatToSongPath(SONG.song);
 		if (isStoryMode)
 		{
 			switch(songName)
@@ -2353,11 +2354,12 @@ class PlayState extends MusicBeatState
 				default:
 					vocals=new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 			}
-		}
+		}*/
 
 		if(curSong.toLowerCase()=='dope'){camHUD.alpha=0;}
 		//do NOT FUCKING DO THIS
 		// fuck you i will!!!!!!!!!!
+		//coward
 
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
@@ -5028,18 +5030,19 @@ class PlayState extends MusicBeatState
 		if(curStep == lastStepHit) {
 			return;
 		}
-
-		if(curSong.toLowerCase()=='dope'){switch(curStep){
-			case 192:FlxTween.tween(camHUD,{alpha:1},1.3,{
-				onComplete:function(fdjkdsf:FlxTween){
-					camHUD.alpha=1;
-				}
-			});
-		}}
 		if(curSong.toLowerCase()=="dope")
 			{
 			   switch (curStep)
 					 {
+					case 176:
+						FlxTween.tween(camHUD,{alpha:1},1.3,{
+							onComplete:function(fdjkdsf:FlxTween){
+								camHUD.alpha=1;
+							}
+						});
+					case 192:
+						FlxTween.tween(letBoxTop, {y:0}, {ease: FlxEase.circOut});
+						FlxTween.tween(letBoxBot, {y: 720 -thickness}, {ease: FlxEase.circOut});
 					case 447: //example
 						velocity(building,300,5);
 						velocity(building2,300,5);

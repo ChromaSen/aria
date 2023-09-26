@@ -16,6 +16,9 @@ function onBeatHit()
 	if curBeat == 112 then
 		callScript("scripts/neocam", "zoom", {"game", 0.9, 1, "quartout"})
 	end
+	if curBeat == 239 then
+		callScript("scripts/neocam", "zoom", {"game", 0.7, 1, "quartout"})
+	end
 end
 function onUpdate() end
 function onUpdatePost() end
