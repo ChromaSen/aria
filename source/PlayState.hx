@@ -1550,14 +1550,6 @@ class PlayState extends MusicBeatState
 			nim.cameras=[camOther];
 			oppPort.cameras=[camOther];
 
-
-			
-
-			
-			
-			/*walterblack = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-			walterblack.screenCenter(X);
-			add(walterblack);*/
 			vsicon=new FlxSprite().loadGraphic(Paths.image("VS/VS"));
 			vsicon.setPosition(-297,-140);
 			vsicon.updateHitbox();
@@ -1597,7 +1589,6 @@ class PlayState extends MusicBeatState
 							}
 							
 						});
-						
 						
 						
 					}

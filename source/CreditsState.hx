@@ -88,7 +88,6 @@ class CreditsState extends MusicBeatState
 			['seal', 'face', 'Musician', 'https://twitter.com/seale2234', 'FFFFFF'],
 			['VEP', '', 'Sprite & UI Artist', 'https://voideyedpanda.newgrounds.com/', 'FFFFFF'],
 			['sacredrazrs', 'razrs', 'Coder, additional Composing', 'https://twitter.com/sacredrazrs','FFFFFF'],
-			['chromasen', 'chromasen icon', 'Coding', 'https://twitter.com/ChromaSen','FFFFFF' ],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],

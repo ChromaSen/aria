@@ -284,7 +284,7 @@ class MainMenuState extends MusicBeatState
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
 									case 'extra':
-										MusicBeatState.switchState(new CreditsState());
+										MusicBeatState.switchState(new ExtrasState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
 										cutthefuckinmusic();

@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.plugin.taskManager.FlxTask;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
@@ -8,7 +9,9 @@ import flixel.util.FlxColor;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.tweens.FlxTween;
+import flixel.FlxCamera;
 import flixel.util.FlxTimer;
 
 class ExtrasState extends MusicBeatState
@@ -27,42 +30,140 @@ class ExtrasState extends MusicBeatState
 
 	];
 
-	public static var leftState:Bool = false;
+	public var credits:Array<String>=[
+		"REDIALBEAT",
+		"tinb",
+		"seal",
+		"VEP",
+		"sacredrazrs"
+	];
 
+	public var creditLinks:Array<String>=[
+        "https://twitter.com/RDBT_0",
+        "https://thisisniceboy.newgrounds.com/",
+        "https://twitter.com/seale2234",
+        "https://voideyedpanda.newgrounds.com/",
+        "https://twitter.com/sacredrazrs"
+    ];
+
+	public var description:Array<String>=[
+		"Director, Musician",
+		"Sprite & BG Artist",
+		"Musician",
+		"Sprite & UI Artist",
+		"Coder, additional Composing"
+	];
+
+	private var camAchievement:FlxCamera;
+
+
+	public var creditstxt:Array<FlxText>;
+	public var icons:Array<FlxSprite>;
+	public var descriptiontxt:FlxText;
+	public var creditstext:FlxText;
+	public var curSelected:Int=0;
 	var warnText:FlxText;
+	var backdro:FlxBackdrop;
+	var bar:FlxSprite;
+
+	/*2do
+	* eecans credits
+	* gallery?
+	* streamable text
+	*/ 
 	override function create()
 	{
 		super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu'));
-		add(bg);
-		warnText = new FlxText(0, 0, FlxG.width,
-			"You're a stupid motherfucker, \naren't you?
-			There were meant to be gallery art and some other shit, but this section is unfinished. \nPress Enter to go to Credits menu, or press Escape to go back.",
-			32);
-		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		warnText.screenCenter(Y);
-		add(warnText);
+
+		FlxG.camera.zoom=0.8;
+		camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
+		FlxG.cameras.add(camAchievement, false);
+
+		creditstxt=new Array<FlxText>();
+		icons=new Array<FlxSprite>();
+
+        backdro = new FlxBackdrop(Paths.image('menu'), XY);
+        backdro.spacing.x = -0.05;
+		backdro.antialiasing = ClientPrefs.globalAntialiasing;    
+		backdro.scale.set(0.5, 0.5); 
+		backdro.alpha=0.8;
+		add(backdro);
+
+		for(i in 0...credits.length){
+			creditstext=new FlxText(490,i*150,300,credits[i]);
+			creditstext.setFormat(Paths.font("helvetica.ttf"),56,FlxColor.WHITE,CENTER,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+            creditstext.alpha=(i==curSelected)?1:0.7; //
+            creditstxt.push(creditstext);
+            add(creditstext);
+
+			//i'll get to them later (maybe)
+           /* var icon:FlxSprite = new FlxSprite(10,i*30,Paths.image("credits/" + credits[i]));
+			//icon.scale.set(1.1,1.1);
+            //icon.alpha=(i==curSelected)?1:0.7;
+            //icons.push(icon);
+           add(icon);
+		   */
+		}
+		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
+		bar.screenCenter();
+		bar.antialiasing=false;
+		bar.cameras=[camAchievement];
+		add(bar);
+
+		descriptiontxt=new FlxText(10,FlxG.height-50,FlxG.width-15,"");
+		descriptiontxt.setFormat(Paths.font("helvetica.ttf"),32,FlxColor.WHITE,CENTER,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		descriptiontxt.text=description[curSelected];
+		descriptiontxt.cameras=[camAchievement];
+		add(descriptiontxt);
+
+		FlxG.sound.playMusic(Paths.music('CogsSETTINGS'),0.75); //i really enjoy this small option song, props to a guy who made it 💪// REDIII I LUV YAAAAA THIS IS A BOP
 	}
 
 	override function update(elapsed:Float)
 	{
-			if (controls.ACCEPT) {
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxTween.tween(warnText, {alpha: 0}, 1, {
-					onComplete: function (twn:FlxTween) {
-						MusicBeatState.switchState(new CreditsState());
-					}
-				});
-			}
-			else if(controls.BACK) {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxTween.tween(warnText, {alpha: 0}, 1, {
-					onComplete: function (twn:FlxTween) {
-						MusicBeatState.switchState(new MainMenuState());
-					}
-				});
-			}
+		backdro.x += (90 * 2) * elapsed;
+		if (controls.UI_DOWN_P){
+            nextarr();
+        }else if(controls.UI_UP_P){
+            previousarr();
+        }
+		if (controls.ACCEPT){
+			CoolUtil.browserLoad(creditLinks[curSelected]);
+		}	
+		else if(controls.BACK) {
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			MusicBeatState.switchState(new MainMenuState());
+			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		}
 		super.update(elapsed);
 	}
+	public function nextarr(){
+		//shit formatting, but if it works, IT WORKS
+        curSelection(curSelected,false);
+		curSelected++;
+		if (curSelected>=credits.length){
+			curSelected=0;
+		}
+    	curSelection(curSelected,true);
+		descriptiontxt.text=description[curSelected];
+    }
+
+    public function previousarr() {
+        if (curSelected>0){
+            curSelection(curSelected,false);
+            curSelected--;
+            curSelection(curSelected,true);
+        }
+		descriptiontxt.text=description[curSelected];
+    }
+
+    public function curSelection(index:Int=0,curSelected:Bool){
+        if (index<creditstxt.length){
+            creditstxt[index].alpha=curSelected?1:0.7;
+			//icons[index].alpha=curSelected?1:0.7;
+        }
+    }
+
 }
