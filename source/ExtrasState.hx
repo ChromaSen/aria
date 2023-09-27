@@ -54,6 +54,15 @@ class ExtrasState extends MusicBeatState
 		"Coder, additional Composing"
 	];
 
+	/*public var icons:Array<String>=[
+		"REDIALBEAT-icon",
+		"tinb-icon",
+		"seal-icon",
+		"VEP-icon",
+		"sacredrazrs-icon"
+	]
+	*/
+
 	private var camAchievement:FlxCamera;
 
 
@@ -66,10 +75,14 @@ class ExtrasState extends MusicBeatState
 	var backdro:FlxBackdrop;
 	var bar:FlxSprite;
 
+	public var texttostream:String;
+    public var streaming:Float;
+	public var icon:FlxSprite;
+
 	/*2do
-	* eecans credits
+	* eecans credits //ill do it later (no)
 	* gallery?
-	* streamable text
+	* streamable text //done
 	*/ 
 	override function create()
 	{
@@ -97,14 +110,11 @@ class ExtrasState extends MusicBeatState
             creditstext.alpha=(i==curSelected)?1:0.7; //
             creditstxt.push(creditstext);
             add(creditstext);
-
-			//i'll get to them later (maybe)
-           /* var icon:FlxSprite = new FlxSprite(10,i*30,Paths.image("credits/" + credits[i]));
-			//icon.scale.set(1.1,1.1);
-            //icon.alpha=(i==curSelected)?1:0.7;
-            //icons.push(icon);
-           add(icon);
-		   */
+			icon=new FlxSprite(creditstext.x+creditstext.width-80,creditstext.y-15,Paths.image('credits/' + credits[i] + "-icon"));
+            icon.scale.set(1.1,1.1);
+            icon.alpha=(i==curSelected)?1:0.7;
+            icons.push(icon);
+            add(icon);
 		}
 		bar=new FlxSprite().loadGraphic(Paths.image('mainmenu/bars'));
 		bar.screenCenter();
@@ -114,11 +124,22 @@ class ExtrasState extends MusicBeatState
 
 		descriptiontxt=new FlxText(10,FlxG.height-50,FlxG.width-15,"");
 		descriptiontxt.setFormat(Paths.font("helvetica.ttf"),32,FlxColor.WHITE,CENTER,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-		descriptiontxt.text=description[curSelected];
+	//	descriptiontxt.text=description[curSelected];
 		descriptiontxt.cameras=[camAchievement];
+		descriptiontxt.text="";
 		add(descriptiontxt);
 
 		FlxG.sound.playMusic(Paths.music('CogsSETTINGS'),0.75); //i really enjoy this small option song, props to a guy who made it 💪// REDIII I LUV YAAAAA THIS IS A BOP
+        texttostream=description[curSelected];
+/*
+		switch(credits[curSelected]){
+			case "tinb":
+				icons[curSelected].x=720;
+				icons[curSelected].y=100;
+				trace("tinb eecan!!!");
+				//FUCK
+		}
+		*/
 	}
 
 	override function update(elapsed:Float)
@@ -137,6 +158,13 @@ class ExtrasState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
+
+		streaming+=elapsed;
+		if(streaming>=0.05){
+			streaming=0;
+			descriptiontxt.text+=texttostream.charAt(descriptiontxt.text.length);
+		}
+		
 		super.update(elapsed);
 	}
 	public function nextarr(){
@@ -147,7 +175,8 @@ class ExtrasState extends MusicBeatState
 			curSelected=0;
 		}
     	curSelection(curSelected,true);
-		descriptiontxt.text=description[curSelected];
+		texttostream=description[curSelected];
+        descriptiontxt.text="";
     }
 
     public function previousarr() {
@@ -156,13 +185,14 @@ class ExtrasState extends MusicBeatState
             curSelected--;
             curSelection(curSelected,true);
         }
-		descriptiontxt.text=description[curSelected];
+		texttostream=description[curSelected];
+        descriptiontxt.text="";
     }
 
     public function curSelection(index:Int=0,curSelected:Bool){
         if (index<creditstxt.length){
             creditstxt[index].alpha=curSelected?1:0.7;
-			//icons[index].alpha=curSelected?1:0.7;
+			icons[index].alpha=curSelected?1:0.7;
         }
     }
 
