@@ -906,7 +906,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32); //lol
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "Botplay", 32); //lol
 		botplayTxt.setFormat(Paths.font("newrodin.otf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1580,6 +1580,7 @@ class PlayState extends MusicBeatState
 									startCountdown();
 								}});
 							}
+							
 						});
 						
 						
@@ -4847,33 +4848,6 @@ class PlayState extends MusicBeatState
 			tankGround.x = tankX + 1500 * Math.cos(Math.PI / 180 * (1 * tankAngle + 180));
 			tankGround.y = 1300 + 1100 * Math.sin(Math.PI / 180 * (1 * tankAngle + 180));
 		}
-	}
-	function cheekyrock(?elapsed:Float = 0):Void
-		{
-			for (i in -1...2) {
-				var width = igotarock.width + 4400;
-				igotarock.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
-			}
-			/*for (i in -1...2) {
-				var width = jaredfromsubway.width + 4400;
-				jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
-			}*/
-		}
-		function mindmotherfucker(?elapsed:Float = 0):Void
-			{
-				for (i in -1...2) {
-					var width = dropbuilding2.width + 4400;
-					dropbuilding2.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 500) % 1) + (i * width);
-				}
-				/*for (i in -1...2) {
-					var width = jaredfromsubway.width + 4400;
-					jaredfromsubway.x = -2400 + FlxMath.lerp(-width, 0, (Conductor.songPosition / 300) % 1) + (i * width);
-				}*/
-			}
-	public function velocity(obj:FlxSprite,x:Float,duration:Float){
-		FlxTween.tween(obj.velocity,{x:x},duration,{onComplete:function(dsfkj:FlxTween){
-			obj.velocity.x=x;
-		}});
 	}
 
 	override function destroy() {
