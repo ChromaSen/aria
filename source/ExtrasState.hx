@@ -1,18 +1,14 @@
 package;
 
-import flixel.addons.plugin.taskManager.FlxTask;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.effects.FlxFlicker;
-import lime.app.Application;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.display.FlxBackdrop;
 import flixel.tweens.FlxTween;
 import flixel.FlxCamera;
-import flixel.util.FlxTimer;
+import flixel.math.FlxPoint;
 
 class ExtrasState extends MusicBeatState
 {
@@ -78,9 +74,10 @@ class ExtrasState extends MusicBeatState
 	public var texttostream:String;
     public var streaming:Float;
 	public var icon:FlxSprite;
+	public var gallerytxt:FlxText;
 
 	/*2do
-	* eecans credits //ill do it later (no)
+	* eecans credits //ill do it later (no) //FIX POSITIONSSSSDSSS
 	* gallery?
 	* streamable text //done
 	*/ 
@@ -90,6 +87,7 @@ class ExtrasState extends MusicBeatState
 
 
 		FlxG.camera.zoom=0.8;
+		FlxG.mouse.visible=true;
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
 		FlxG.cameras.add(camAchievement, false);
@@ -128,18 +126,16 @@ class ExtrasState extends MusicBeatState
 		descriptiontxt.cameras=[camAchievement];
 		descriptiontxt.text="";
 		add(descriptiontxt);
-
+		//stuff for whenever i feel like doing it
+		#if debug
+		gallerytxt=new FlxText(150,-5,FlxG.width-15,"Gallery");
+		gallerytxt.alpha=0.4;
+        gallerytxt.setFormat(Paths.font("helvetica.ttf"),42,FlxColor.WHITE,LEFT,FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		gallerytxt.cameras=[camAchievement];
+        add(gallerytxt);
+		#end
 		FlxG.sound.playMusic(Paths.music('CogsSETTINGS'),0.75); //i really enjoy this small option song, props to a guy who made it 💪// REDIII I LUV YAAAAA THIS IS A BOP
         texttostream=description[curSelected];
-/*
-		switch(credits[curSelected]){
-			case "tinb":
-				icons[curSelected].x=720;
-				icons[curSelected].y=100;
-				trace("tinb eecan!!!");
-				//FUCK
-		}
-		*/
 	}
 
 	override function update(elapsed:Float)
@@ -158,6 +154,13 @@ class ExtrasState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		}
+
+		#if debug
+		var mousePoint:FlxPoint=FlxG.mouse.getScreenPosition();
+		if (gallerytxt.overlapsPoint(mousePoint)){
+trace('test');
+		}
+		#end
 
 		streaming+=elapsed;
 		if(streaming>=0.05){

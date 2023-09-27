@@ -19,8 +19,6 @@ Seal - Composer & FX
 
 tinb - Artist, Coder
 
-chromasen - Coder
-
 sacredrazrs - Coder, Additional Composing
 
 VoidEyedPanda - Artist, Menus
