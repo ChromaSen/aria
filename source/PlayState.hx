@@ -1513,28 +1513,48 @@ class PlayState extends MusicBeatState
 			bottom.scale.y = 0.9;
 			top.screenCenter(X);
 			bottom.screenCenter(X);
-			add(top);
-			add(bottom);
-			top.cameras=[camOther];
-			bottom.cameras=[camOther];
 			vsbg=new FlxSprite().loadGraphic(Paths.image("VS/VSbg"));
-			vsbg.setPosition(42,10);
-			add(vsbg);
+			vsbg.screenCenter(X);
 
 			nim = new FlxSprite();
-			nim.setPosition(2000,250);
+			nim.setPosition(1500,550);
 			nim.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 			oppPort = new FlxSprite();
-			oppPort.setPosition(-400,300);
+			oppPort.scale.x = 0.9;
+			oppPort.scale.y = 0.9;
+			oppPort.setPosition(-700,100);
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 
 			oppPort.animation.addByPrefix('bunsen', "bunsen", 24);
 			oppPort.animation.addByPrefix('y2kuntz', "kuntz", 24);
 			oppPort.animation.addByPrefix('bo', "bo", 24);
-
+			switch(curSong.toLowerCase())
+			{
+				case 'sidechain':
+					oppPort.animation.play('bunsen');
+				case 'kokoro':
+					oppPort.animation.play('bo');
+			}
 			nim.animation.addByPrefix('nim', "nim", 24);
 			nim.animation.play ('nim');
+
+			add(vsbg);
 			add(nim);
+			add(oppPort);
+			add(top);
+			add(bottom);
+
+			top.cameras=[camOther];
+			bottom.cameras=[camOther];
+			vsbg.cameras=[camOther];
+			nim.cameras=[camOther];
+			oppPort.cameras=[camOther];
+
+
+			
+
+			
+			
 			/*walterblack = new FlxSprite(0, -300).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 			walterblack.screenCenter(X);
 			add(walterblack);*/
@@ -1545,38 +1565,33 @@ class PlayState extends MusicBeatState
 			add(vsicon);
 			vsicon.cameras=[camOther];
 
-			switch(curSong.toLowerCase())
-			{
-				case 'sidechain':
-					oppPort.animation.play('bunsen');
-					add(oppPort);
-				case 'kokoro':
-					oppPort.animation.play('bo');
-					add(oppPort);
-			}
+			
 			all=[vsbg,nim,oppPort,vsicon];
 			introtimer=new FlxTimer().start(0.5,function(fdks:FlxTimer){
 				intro.play(true);
 				FlxTween.tween(top,{y:-50},1,{ease:FlxEase.quintOut});
 				FlxTween.tween(bottom,{y:500},1,{ease:FlxEase.quintOut});
-				bunsentwn=FlxTween.tween(oppPort,{x:320},0.75,{
+				bunsentwn=FlxTween.tween(oppPort,{x:120},0.75,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
-						FlxTween.tween(oppPort,{x:370},5);
+						FlxTween.tween(oppPort,{x:170},5);
 					}
 				});
-				nimtwn=FlxTween.tween(nim,{x:1350},0.75,{
+				nimtwn=FlxTween.tween(nim,{x:850},0.75,{
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
-							FlxTween.tween(nim,{x:1300},5);
-							//FlxG.camera.fade(FlxColor.BLACK, 1.6, false);
+							FlxTween.tween(nim,{x:800},5);
+							FlxG.camera.fade(FlxColor.BLACK, 1.6, false);
 						new FlxTimer().start(2.3,function(df:FlxTimer){
 							for(intro in all){
+								FlxTween.tween(camOther,{alpha:0},1.8);
 								FlxTween.tween(intro,{alpha:0},1.8,{onComplete:function(dsfdfs:FlxTween){
 									remove(intro);
 									remove(bottom);
 									remove(top);
 									FlxG.game.setFilters([]);
+									FlxG.camera.fade(FlxColor.BLACK, 1.6, true);
 									camHUD.visible=true;
+									camOther.alpha=1;
 									startCountdown();
 								}});
 							}
