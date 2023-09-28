@@ -1517,11 +1517,13 @@ class PlayState extends MusicBeatState
 			vsbg.screenCenter(X);
 
 			nim = new FlxSprite();
-			nim.setPosition(1500,550);
+			nim.setPosition(1500,50);
 			nim.frames = Paths.getSparrowAtlas('VS/portraits/ports');
+			nim.scale.x = 0.8;
+			nim.scale.y = 0.8;
 			oppPort = new FlxSprite();
-			oppPort.scale.x = 0.9;
-			oppPort.scale.y = 0.9;
+			oppPort.scale.x = 0.8;
+			oppPort.scale.y = 0.8;
 			oppPort.setPosition(-700,100);
 			oppPort.frames = Paths.getSparrowAtlas('VS/portraits/ports');
 
@@ -1563,15 +1565,15 @@ class PlayState extends MusicBeatState
 				intro.play(true);
 				FlxTween.tween(top,{y:-50},1,{ease:FlxEase.quintOut});
 				FlxTween.tween(bottom,{y:500},1,{ease:FlxEase.quintOut});
-				bunsentwn=FlxTween.tween(oppPort,{x:120},0.75,{
+				bunsentwn=FlxTween.tween(oppPort,{x:-120},0.75,{
 					ease:FlxEase.circInOut,onComplete:function(fdj:FlxTween){
-						FlxTween.tween(oppPort,{x:170},5);
+						FlxTween.tween(oppPort,{x:-100},5);
 					}
 				});
-				nimtwn=FlxTween.tween(nim,{x:850},0.75,{
+				nimtwn=FlxTween.tween(nim,{x:800},0.75,{
 						ease:FlxEase.circInOut,onComplete:function(vbxcvb:FlxTween){
 							FlxG.sound.list.remove(intro);
-							FlxTween.tween(nim,{x:800},5);
+							FlxTween.tween(nim,{x:750},5);
 							FlxG.camera.fade(FlxColor.BLACK, 1.6, false);
 						new FlxTimer().start(2.3,function(df:FlxTimer){
 							for(intro in all){
