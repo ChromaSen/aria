@@ -17,7 +17,7 @@ REDIALBEAT - Creator, Director, Composer, BG & Mechanics Artist
 
 Seal - Composer & FX
 
-walls - Coder
+asseater12k - Coder
 
 tinb - Artist, Coder
 
