@@ -11,7 +11,7 @@ local size = 30
 local setColor = 'ffffff'
 local sungColor = 'ffffff'
 
-local font = 'vcr.ttf'
+local font = 'newrodin.otf'
 
 
 
