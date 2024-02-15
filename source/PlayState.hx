@@ -2885,12 +2885,12 @@ class PlayState extends MusicBeatState
 			var ret:Dynamic = callOnLuas('onPause', [], false);
 			if(ret != FunkinLua.Function_Stop) {
 				openPauseMenu();
+				trace("isn't asseater brilliant");
 			}
 		}
 		else
 		{
 			camHUD.alpha = 1;
-			trace("isn't asseater brilliant");
 		}
 		if (FlxG.keys.justPressed.THREE && startedCountdown && canPause)
 			{
