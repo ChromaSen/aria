@@ -227,7 +227,7 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
-	public var camHUD:FlxCamera;
+	public static var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -2886,6 +2886,11 @@ class PlayState extends MusicBeatState
 			if(ret != FunkinLua.Function_Stop) {
 				openPauseMenu();
 			}
+		}
+		else
+		{
+			camHUD.alpha = 1;
+			trace("isn't asseater brilliant");
 		}
 		if (FlxG.keys.justPressed.THREE && startedCountdown && canPause)
 			{
